@@ -38,7 +38,7 @@ header {
 
 section {
     padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-bottom: 7rem;
 }
 
 samp {
@@ -83,6 +83,7 @@ ul.timeline > li {
     padding-left: 1rem;
     font-size: 1em;
     vertical-align: middle;
+    width: 90%;
 }
 
 ul.timeline > li span {

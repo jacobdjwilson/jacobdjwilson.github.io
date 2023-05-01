@@ -1,12 +1,12 @@
 /*!
-* Jacob's Portfolio v1.0 - A GitHub Pages Project
-* Copyright 2022 Jacob DJ Wilson
+* Jacob's Portfolio v1.1 - A GitHub Pages Project
+* Copyright 2023 Jacob DJ Wilson
 * Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
 */
 /*!
- * Bootstrap v5.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
+ * Bootstrap  v5.2.3 (https://getbootstrap.com/)
+ * Copyright 2011-2022 The Bootstrap Authors
+ * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 html {
@@ -37,8 +37,8 @@ header {
 }
 
 section {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 
 samp {
@@ -47,6 +47,7 @@ samp {
 
 .timeline-date {
     color: #888;
+    margin-top: 0.5rem;
 }
 
 .timeline-border {

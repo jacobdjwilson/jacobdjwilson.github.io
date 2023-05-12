@@ -26,12 +26,8 @@ body {
 header {
     padding-top: 9.5rem;
     padding-bottom: 6rem;
-    background: #003;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #003, #0BC);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #003, #0BC);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-image: url('img/background.webp');
+    background-size: cover;
     display: flex;
     vertical-align: bottom;
 }
@@ -107,3 +103,15 @@ ul.timeline > li:before {
     height: 0.8rem;
     z-index: 400;
 }
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }

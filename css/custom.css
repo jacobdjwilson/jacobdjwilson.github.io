@@ -1,0 +1,116 @@
+/*!
+* Jacob's Portfolio v1.2 - A GitHub Pages Project
+* Copyright 2024 Jacob DJ Wilson
+* Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
+*/
+/*!
+  * Bootstrap v5.3.3 (https://getbootstrap.com/)
+  * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+html {
+    line-height: 1;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 3.5rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    color: #555;
+}
+
+header {
+    padding-top: 9.5rem;
+    padding-bottom: 6rem;
+    background-image: url('img/background.webp');
+    background-size: cover;
+    display: flex;
+    vertical-align: bottom;
+}
+
+section {
+    padding-top: 6rem;
+    padding-bottom: 7rem;
+}
+
+samp {
+    color: #888;
+}
+
+.timeline-date {
+    color: #888;
+    margin-top: 0.5rem;
+}
+
+.timeline-border {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #EEE;
+}
+
+.timeline img {
+    max-height: 3.5rem;
+    padding: 0.5em 0.5em;
+    float: right;
+}
+
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+
+ul.timeline:before {
+    content: '';
+    background: #EEE;
+    position: absolute;
+    left: 1.85rem;
+    width: 1px;
+    height: 100%;
+    z-index: 400;  
+}
+
+ul.timeline > li {
+    margin: 3rem 0;
+    padding-left: 1rem;
+    font-size: 1em;
+    vertical-align: middle;
+    width: 90%;
+}
+
+ul.timeline > li span {
+    font-size: 0.5em;
+    color: #888;
+    min-height: 10em;
+    display: table-cell;
+    line-height: 1.5rem;
+}
+
+ul.timeline > li:before {
+    content: ' ';
+    background: #fff;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid #888;
+    margin-top: 0.4rem;
+    left: 1.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    z-index: 400;
+}
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }

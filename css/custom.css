@@ -1,5 +1,5 @@
 /*!
-* Jacob's Portfolio v1.2 - A GitHub Pages Project
+* Jacob's Portfolio v1.3 - A GitHub Pages Project
 * Copyright 2024 Jacob DJ Wilson
 * Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
 */
@@ -42,7 +42,12 @@ samp {
 
 .timeline-date {
     color: #888;
-    margin-top: 0.5rem;
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #555;
+    border-radius: 4px;
+    border: 1px solid #dcdcdc;
+    padding: 0.2rem 1rem;
 }
 
 .timeline-border {

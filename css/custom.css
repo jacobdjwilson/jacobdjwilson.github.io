@@ -72,7 +72,7 @@ ul.timeline:before {
     content: '';
     background: #EEE;
     position: absolute;
-    left: 1.85rem;
+    left: 1.86rem;
     width: 1px;
     height: 100%;
     z-index: 400;  
@@ -96,15 +96,15 @@ ul.timeline > li span {
 
 ul.timeline > li:before {
     content: ' ';
-    background: #fff;
+    background: #888;
     display: inline-block;
     position: absolute;
     border-radius: 50%;
-    border: 1px solid #888;
-    margin-top: 0.6rem;
-    left: 1.5rem;
-    width: 0.8rem;
-    height: 0.8rem;
+    border: 5px solid #fff;
+    margin-top: 0.45rem;
+    left: 1.35rem;
+    width: 1.2rem;
+    height: 1.2rem;
     z-index: 400;
 }
 

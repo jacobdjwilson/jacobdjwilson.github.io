@@ -17,11 +17,14 @@ body {
     color: #555;
 }
 
+.bg-image {
+    background-image: url('../img/background.webp');
+    background-size: cover;
+}
+
 header {
     padding-top: 9.5rem;
     padding-bottom: 6rem;
-    background-image: url('img/background.webp');
-    background-size: cover;
     display: flex;
     vertical-align: bottom;
 }

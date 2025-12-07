@@ -18,7 +18,7 @@ body {
 }
 
 .bg-image {
-    background-image: url('../img/background.webp');
+    background-image: url('img/background.webp');
     background-size: cover;
 }
 

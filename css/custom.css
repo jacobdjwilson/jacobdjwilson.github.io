@@ -3,39 +3,10 @@
 * Last Modified December 2025 | This Source Code is Free for re-use
 * Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
 */
-html {
-    line-height: 1;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 3.5rem;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    line-height: 1.5;
-    color: #555;
-}
 
 .bg-image {
     background-image: url('img/background.webp');
     background-size: cover;
-}
-
-header {
-    padding-top: 9.5rem;
-    padding-bottom: 6rem;
-    display: flex;
-    vertical-align: bottom;
-}
-
-section {
-    padding-top: 6rem;
-    padding-bottom: 7rem;
-}
-
-samp {
-    color: #888;
 }
 
 ul.timeline {

@@ -4,11 +4,6 @@
 * Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
 */
 
-.bg-image {
-    background-image: url('img/background.webp');
-    background-size: cover;
-}
-
 ul.timeline {
     list-style-type: none;
     position: relative;

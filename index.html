@@ -42,11 +42,13 @@
     </div>
 </nav>
 <!-- Header-->
-<header class="text-white d-flex py-5 mt-5" style="padding-top: 6rem !important; background-image: url('img/background.webp'); background-size: cover;">
-    <video id="background-video" class="min-vw-100 min-vh-100 position-fixed top-0 start-0 z-n1" style="object-fit: cover;" playsinline autoplay loop muted poster="img/background.webp">
-    <source src="img/background.webm" type="video/webm">
+<header class="text-white d-flex py-5 mt-5 position-relative overflow-hidden" style="padding-top: 6rem !important; background-image: url('img/background.png'); background-image: url('img/background.webp'); background-size: cover; background-position: center;">
+    
+    <video id="background-video" class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: cover; z-index: 0;" playsinline autoplay loop muted poster="img/background.webp" onerror="this.style.display='none'">
+        <source src="img/background.webm" type="video/webm">
+        <img src="img/background.png" alt="Background Image" class="w-100 h-100" style="object-fit: cover;">
     </video>
-    <div class="container px-4 text-center">
+    <div class="container px-4 text-center position-relative" style="z-index: 1;">
         <picture>
             <source type="image/webp" srcset="img/headshot.webp" alt="Professional Headshot Photo" width="20%" class="rounded-circle p-3"/>
             <img src="img/headshot.png" alt="Professional Headshot Photo" width="30%" class="rounded-circle p-3"/>

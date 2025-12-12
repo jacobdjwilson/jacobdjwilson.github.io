@@ -16,7 +16,7 @@ ul.timeline:before {
     left: 1.86rem;
     width: 1px;
     height: 100%;
-    z-index: 400;  
+    z-index: 400;
 }
 
 ul.timeline > li {
@@ -37,7 +37,7 @@ ul.timeline > li span {
 
 ul.timeline > li:before {
     content: ' ';
-    background: #888;
+    background: #444;
     display: inline-block;
     position: absolute;
     border-radius: 50%;
@@ -47,4 +47,23 @@ ul.timeline > li:before {
     width: 1.2rem;
     height: 1.2rem;
     z-index: 400;
+}
+
+ul.timeline > li h4, 
+ul.timeline > li h5 {
+    position: relative;
+}
+
+ul.timeline > li h4:before, 
+ul.timeline > li h5:before {
+    content: '';
+    background: #888;
+    position: absolute;
+    border-radius: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -1.3rem;
+    z-index: 401;
 }

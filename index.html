@@ -42,9 +42,8 @@
     </div>
 </nav>
 <!-- Header-->
-<header class="text-white d-flex py-5 mt-5 position-relative overflow-hidden" style="padding-top: 6rem !important; background-image: url('img/background.png'); background-image: url('img/background.webp'); background-size: cover; background-position: center;">
-    
-    <video id="background-video" class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: cover; z-index: 0;" playsinline autoplay loop muted poster="img/background.webp" onerror="this.style.display='none'">
+<header class="text-white d-flex py-5 mt-5 position-relative overflow-hidden" style="padding-top: 6rem !important; background-image: url('img/background.png'); background-image: url('img/background.webp'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <video id="background-video" class="w-100 h-100 position-fixed top-0 start-0" style="object-fit: cover; z-index: 0;" playsinline autoplay loop muted poster="img/background.webp" onerror="this.style.display='none'">
         <source src="img/background.webm" type="video/webm">
         <img src="img/background.png" alt="Background Image" class="w-100 h-100" style="object-fit: cover;">
     </video>
@@ -68,7 +67,7 @@
     </div>
 </header>
 <!-- Background section-->
-<section class="bg-white py-5" id="background">
+<section class="bg-white py-5 position-relative" id="background">
     <div class="container px-4">
         <div class="row gx-4 justify-content-center">
             <div class="col-lg-8">
@@ -86,7 +85,7 @@
     </div>
 </section>
 <!-- Qualities section-->
-<section class="bg-light py-5" id="qualities">
+<section class="bg-light py-5 position-relative" id="qualities">
     <div class="container">
         <div class="row gx-4 justify-content-center">
             <div class="col-sm-3">
@@ -129,7 +128,7 @@
     </div>
 </section>
 <!-- Experience section-->
-<section class="bg-white py-5" id="experience">
+<section class="bg-white py-5 position-relative" id="experience">
     <div class="container px-4">
         <div class="row gx-4 justify-content-center">
             <div class="col-lg-8">
@@ -409,7 +408,7 @@
     </div>
 </section>
 <!-- Education section-->
-<section class="bg-light py-5" id="education">
+<section class="bg-light py-5 position-relative" id="education">
     <div class="container px-4">
         <div class="row gx-4 justify-content-center">
             <div class="col-lg-8">
@@ -454,7 +453,7 @@
     </div>
 </section>        
 <!-- Awards section-->
-<section class="bg-white py-5" id="awards">
+<section class="bg-white py-5 position-relative" id="awards">
     <div class="container px-4">
         <div class="row gx-4 justify-content-center">
             <div class="col-lg-8">
@@ -510,7 +509,7 @@
     </div>
 </section>
 <!-- Media section-->
-<section class="bg-light py-5" id="media">
+<section class="bg-light py-5 position-relative" id="media">
     <div class="container px-4">
         <div class="row gx-4 justify-content-center">
             <div class="col-lg-8">
@@ -575,7 +574,7 @@
     </div>
 </section>
 <!-- Footer-->
-<footer class="py-3 bg-dark">
+<footer class="py-3 bg-dark position-relative">
     <div class="container px-4"><p class="m-0 text-center text-white">Last Modified December 2025 | This <a href="https://github.com/jacobdjwilson/jacobdjwilson.github.io" target="_blank">source code</a> is free for re-use</p></div>
 </footer>
 </body>

@@ -29,8 +29,13 @@
 <title>Jacob DJ Wilson</title>
 <link href="css/custom.css" rel="stylesheet" />
 <link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/theme-win95.css" rel="stylesheet" />
+<link href="css/theme-geocities.css" rel="stylesheet" />
+<link href="css/theme-8bit.css" rel="stylesheet" />
+<link href="css/theme-terminal.css" rel="stylesheet" />
 <script defer src="js/bootstrap.min.js"></script>
 <script defer src="js/fontawesome.js"></script>
+<script defer src="js/theme-switcher.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V3STXMBPVV"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V3STXMBPVV');</script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "eb5996ff4de6474e91c02b3367946625"}'></script>
 <script type="application/ld+json">
@@ -60,7 +65,22 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container px-4">
-        <a class="navbar-brand" href="#page-top" aria-label="Home"><i class="fa-regular fa-house" aria-hidden="true"></i></a>
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand mb-0" href="#page-top" aria-label="Home"><i class="fa-regular fa-house" aria-hidden="true"></i></a>
+            <div class="dropdown" id="themeSwitcher">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle ms-2" type="button" id="themeDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Change site theme" title="Change site theme">
+                    <i class="fa-solid fa-palette" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="themeDropdownBtn">
+                    <li><a class="dropdown-item theme-option active" href="#" data-theme="default"><i class="fa-solid fa-star fa-fw" aria-hidden="true"></i> Default</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item theme-option" href="#" data-theme="win95"><i class="fa-brands fa-windows fa-fw" aria-hidden="true"></i> Windows 95</a></li>
+                    <li><a class="dropdown-item theme-option" href="#" data-theme="geocities"><i class="fa-solid fa-globe fa-fw" aria-hidden="true"></i> GeoCities</a></li>
+                    <li><a class="dropdown-item theme-option" href="#" data-theme="8bit"><i class="fa-solid fa-gamepad fa-fw" aria-hidden="true"></i> 8-Bit RPG</a></li>
+                    <li><a class="dropdown-item theme-option" href="#" data-theme="terminal"><i class="fa-solid fa-terminal fa-fw" aria-hidden="true"></i> Terminal</a></li>
+                </ul>
+            </div>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">

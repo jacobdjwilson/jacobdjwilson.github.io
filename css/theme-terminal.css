@@ -1,0 +1,204 @@
+/*!
+* Jacob's Portfolio - Theme: Terminal
+* Scoped entirely under body.theme-terminal so it only activates when
+* selected via the theme switcher. Classic green-phosphor CRT look, built
+* with a text-shadow glow and a CSS-only scanline overlay - no images.
+*/
+
+body.theme-terminal {
+    background: #000 !important;
+    color: #33ff33;
+    font-family: "Courier New", Courier, monospace;
+    text-shadow: 0 0 5px #33ff33;
+}
+
+body.theme-terminal h1,
+body.theme-terminal h2,
+body.theme-terminal h3,
+body.theme-terminal h4,
+body.theme-terminal h5,
+body.theme-terminal h6 {
+    font-family: inherit;
+    color: #33ff33;
+}
+
+body.theme-terminal h2::before {
+    content: "> ";
+}
+
+body.theme-terminal .lead {
+    color: #66ff66;
+}
+
+body.theme-terminal a {
+    color: #33ff33;
+    text-decoration: underline;
+}
+
+body.theme-terminal a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #33ff33;
+}
+
+/* ---------- CRT scanline overlay ---------- */
+body.theme-terminal::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.25) 0px,
+        rgba(0, 0, 0, 0.25) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 2000;
+    animation: terminal-flicker 6s infinite;
+}
+
+@keyframes terminal-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.94; }
+}
+
+/* ---------- Nav bar ---------- */
+body.theme-terminal #mainNav {
+    background: #000 !important;
+    border-bottom: 1px solid #33ff33;
+    box-shadow: 0 0 10px rgba(51, 255, 51, 0.4);
+}
+
+body.theme-terminal #mainNav .navbar-brand,
+body.theme-terminal #mainNav .nav-link {
+    color: #33ff33 !important;
+}
+
+body.theme-terminal .dropdown-menu {
+    background: #000;
+    border: 1px solid #33ff33;
+    border-radius: 0;
+}
+
+body.theme-terminal .dropdown-item {
+    color: #33ff33;
+}
+
+body.theme-terminal .dropdown-item:hover {
+    background: #33ff33;
+    color: #000;
+}
+
+/* ---------- Sections ---------- */
+body.theme-terminal section.bg-white,
+body.theme-terminal section.bg-light {
+    background: #000 !important;
+}
+
+body.theme-terminal h6 samp {
+    background: #000;
+    color: #33ff33;
+    padding: 2px 8px;
+    border: 1px solid #33ff33;
+}
+
+/* ---------- Cards -> terminal windows ---------- */
+body.theme-terminal .card {
+    background: #000;
+    border: 1px solid #33ff33;
+    border-radius: 0;
+    box-shadow: 0 0 12px rgba(51, 255, 51, 0.25);
+}
+
+body.theme-terminal .card-body,
+body.theme-terminal .card-title,
+body.theme-terminal .card-text {
+    color: #33ff33;
+}
+
+body.theme-terminal .card-header {
+    background: #001a00;
+    border-bottom: 1px solid #33ff33;
+}
+
+/* ---------- Buttons ---------- */
+body.theme-terminal .btn {
+    background: #000;
+    border: 1px solid #33ff33;
+    color: #33ff33 !important;
+    border-radius: 0;
+    box-shadow: 0 0 8px rgba(51, 255, 51, 0.5);
+}
+
+body.theme-terminal .btn:hover {
+    background: #33ff33;
+    color: #000 !important;
+    text-shadow: none;
+}
+
+/* ---------- Timeline ---------- */
+body.theme-terminal ul.timeline:before {
+    background: #33ff33;
+    opacity: 0.5;
+}
+
+body.theme-terminal ul.timeline > li:before {
+    background: #000;
+    border: 2px solid #33ff33;
+}
+
+body.theme-terminal .bg-light.text-secondary.border.rounded {
+    background: #000 !important;
+    color: #33ff33 !important;
+    border: 1px solid #33ff33 !important;
+}
+
+body.theme-terminal .position-absolute.top-50.start-0.w-100.border-top {
+    border-color: #33ff33 !important;
+    opacity: 0.4;
+}
+
+/* ---------- Tables ---------- */
+body.theme-terminal table,
+body.theme-terminal th,
+body.theme-terminal td {
+    background: #000 !important;
+    color: #33ff33 !important;
+    border-color: #33ff33 !important;
+}
+
+body.theme-terminal .table-hover > tbody > tr:hover > * {
+    background: #003300 !important;
+}
+
+/* ---------- Lists ---------- */
+body.theme-terminal .list-group-item {
+    background: #000;
+    color: #33ff33;
+    border: 1px solid #33ff33;
+    border-radius: 0;
+}
+
+/* ---------- Footer ---------- */
+body.theme-terminal footer {
+    background: #000 !important;
+    border-top: 1px solid #33ff33;
+    color: #33ff33 !important;
+}
+
+body.theme-terminal footer a {
+    color: #33ff33;
+}
+
+/* blinking cursor helper, used by theme-switcher.js next to the brand mark */
+@keyframes terminal-cursor-blink {
+    50% { opacity: 0; }
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 0.55em;
+    background: #33ff33;
+    margin-left: 4px;
+    animation: terminal-cursor-blink 1s step-start infinite;
+}

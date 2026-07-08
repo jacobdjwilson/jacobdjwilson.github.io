@@ -1,0 +1,184 @@
+/*!
+* Jacob's Portfolio - Theme: 8-Bit RPG
+* Scoped entirely under body.theme-8bit so it only activates when selected
+* via the theme switcher. Pairs with the "Press Start 2P" pixel font, which
+* theme-switcher.js lazy-loads from Google Fonts only when this theme is picked.
+*/
+
+body.theme-8bit {
+    background: #5c94fc !important; /* classic overworld sky blue */
+    color: #000;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+body.theme-8bit h1,
+body.theme-8bit h2,
+body.theme-8bit h3,
+body.theme-8bit h4,
+body.theme-8bit h5,
+body.theme-8bit h6 {
+    font-family: inherit;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 #000;
+    color: #fff200;
+}
+
+body.theme-8bit p,
+body.theme-8bit li,
+body.theme-8bit .card-text,
+body.theme-8bit td,
+body.theme-8bit th {
+    font-size: 0.65rem;
+    line-height: 1.9;
+}
+
+body.theme-8bit img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* ---------- Nav bar ---------- */
+body.theme-8bit #mainNav {
+    background: #000 !important;
+    border-bottom: 4px solid #fff200;
+}
+
+body.theme-8bit #mainNav .navbar-brand,
+body.theme-8bit #mainNav .nav-link {
+    color: #fff200 !important;
+    font-size: 0.7rem;
+}
+
+body.theme-8bit .dropdown-menu {
+    background: #fff8e0;
+    border: 4px solid #000;
+    border-radius: 0;
+    box-shadow: 6px 6px 0 #000;
+}
+
+body.theme-8bit .dropdown-item {
+    font-size: 0.6rem;
+    color: #000;
+}
+
+body.theme-8bit .dropdown-item:hover {
+    background: #e60012;
+    color: #fff;
+}
+
+/* ---------- Sections: brick / question-block tiled patterns ---------- */
+body.theme-8bit section.bg-white {
+    background: repeating-linear-gradient(45deg, #fff, #fff 10px, #e8e8e8 10px, #e8e8e8 20px) !important;
+}
+
+body.theme-8bit section.bg-light {
+    background: repeating-linear-gradient(45deg, #fbe870, #fbe870 10px, #f7d34d 10px, #f7d34d 20px) !important;
+}
+
+body.theme-8bit h6 samp {
+    background: #000;
+    color: #00e756;
+    padding: 6px 10px;
+    border: 3px solid #00e756;
+    display: inline-block;
+    font-size: 0.6rem;
+}
+
+/* ---------- Cards -> RPG dialogue boxes ---------- */
+body.theme-8bit .card {
+    border: 4px solid #000;
+    border-radius: 0;
+    box-shadow: 6px 6px 0 #000;
+    background: #fff8e0;
+}
+
+body.theme-8bit .card-header {
+    background: #000;
+    color: #fff200;
+    border-bottom: 4px solid #000;
+    border-radius: 0;
+}
+
+/* ---------- Buttons ---------- */
+body.theme-8bit .btn {
+    border: 4px solid #000;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 #000;
+    background: #e60012; /* mario red */
+    color: #fff !important;
+    font-family: inherit;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    transition: none;
+}
+
+body.theme-8bit .btn:hover {
+    background: #ff4f5e;
+}
+
+body.theme-8bit .btn:active {
+    box-shadow: 1px 1px 0 #000;
+    transform: translate(3px, 3px);
+}
+
+/* ---------- Timeline ---------- */
+body.theme-8bit ul.timeline:before {
+    background: #000;
+    width: 4px;
+}
+
+body.theme-8bit ul.timeline > li:before {
+    background: #fff200;
+    border: 3px solid #000;
+    border-radius: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+body.theme-8bit .bg-light.text-secondary.border.rounded {
+    background: #00e756 !important;
+    color: #000 !important;
+    border: 3px solid #000 !important;
+    border-radius: 0 !important;
+    font-size: 0.6rem;
+}
+
+/* ---------- Tables ---------- */
+body.theme-8bit table {
+    border: 4px solid #000;
+    background: #fff8e0;
+}
+
+body.theme-8bit th {
+    background: #000;
+    color: #fff200;
+    border: 2px solid #000 !important;
+}
+
+body.theme-8bit td {
+    border: 2px solid #000 !important;
+}
+
+/* ---------- Lists ---------- */
+body.theme-8bit .list-group-item {
+    border: 2px solid #000;
+    border-radius: 0;
+    background: #fff8e0;
+    font-size: 0.6rem;
+}
+
+/* ---------- Footer ---------- */
+body.theme-8bit footer {
+    background: #000 !important;
+    border-top: 4px solid #fff200;
+    color: #fff200 !important;
+    font-size: 0.55rem;
+}
+
+body.theme-8bit footer a {
+    color: #00e756;
+}

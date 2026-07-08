@@ -1,0 +1,219 @@
+/*!
+* Jacob's Portfolio - Theme: GeoCities
+* Scoped entirely under body.theme-geocities so it only activates when
+* selected via the theme switcher. Uses CSS-only tiled backgrounds and
+* animation - no external image assets required.
+*/
+
+body.theme-geocities {
+    background-color: #000033 !important;
+    background-image:
+        radial-gradient(circle at 10% 20%, #ffff00 1px, transparent 1.5px),
+        radial-gradient(circle at 60% 70%, #00ffff 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 15%, #ff00ff 1px, transparent 1.5px),
+        radial-gradient(circle at 30% 85%, #ffffff 1px, transparent 1.5px);
+    background-size: 60px 60px, 90px 90px, 120px 120px, 45px 45px;
+    background-repeat: repeat;
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+}
+
+body.theme-geocities h1,
+body.theme-geocities h2,
+body.theme-geocities h3,
+body.theme-geocities h4 {
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff, #ff0000);
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: geocities-rainbow 5s linear infinite;
+    text-shadow: none;
+}
+
+@keyframes geocities-rainbow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+}
+
+/* ---------- Links: classic unvisited/visited blue+purple ---------- */
+body.theme-geocities a {
+    color: #33ffff;
+}
+
+body.theme-geocities a:visited {
+    color: #ff66ff;
+}
+
+body.theme-geocities a:hover {
+    color: #ffff00;
+}
+
+/* ---------- Nav bar ---------- */
+body.theme-geocities #mainNav {
+    background: #000 !important;
+    border-bottom: 4px double #ffff00;
+}
+
+body.theme-geocities #mainNav .navbar-brand,
+body.theme-geocities #mainNav .nav-link {
+    color: #00ffff !important;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+}
+
+body.theme-geocities .dropdown-menu {
+    background: #fffbe6;
+    border: 3px dashed #ff00ff;
+    border-radius: 0;
+}
+
+body.theme-geocities .dropdown-item {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: #000;
+}
+
+body.theme-geocities .dropdown-item:hover {
+    background: #ffff00;
+}
+
+/* ---------- Sections ---------- */
+body.theme-geocities section.bg-white,
+body.theme-geocities section.bg-light {
+    background: rgba(0, 0, 51, 0.55) !important;
+}
+
+body.theme-geocities h6 samp {
+    background: #000;
+    color: #00ff00;
+    padding: 3px 8px;
+    border: 2px solid #00ff00;
+    font-family: "Courier New", monospace;
+}
+
+body.theme-geocities .lead {
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* ---------- Cards -> chunky bordered web-1.0 boxes ---------- */
+body.theme-geocities .card {
+    background: #fffbe6;
+    color: #000;
+    border: 4px dashed #ff00ff;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+body.theme-geocities .card-body,
+body.theme-geocities .card-text,
+body.theme-geocities .card-title {
+    color: #000;
+    font-family: "Times New Roman", Times, serif;
+}
+
+body.theme-geocities .card-header {
+    background: #ffff00;
+    border-bottom: 3px solid #ff00ff;
+}
+
+/* ---------- Buttons ---------- */
+body.theme-geocities .btn {
+    background: #ffff00;
+    color: #000 !important;
+    border: 3px solid #ff00ff;
+    border-radius: 0;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+}
+
+body.theme-geocities .btn:hover {
+    background: #ff00ff;
+    color: #fff !important;
+}
+
+/* ---------- Timeline ---------- */
+body.theme-geocities ul.timeline:before {
+    background: #ff00ff;
+}
+
+body.theme-geocities ul.timeline > li:before {
+    background: #00ffff;
+    border: 3px solid #fff;
+}
+
+body.theme-geocities .bg-light.text-secondary.border.rounded {
+    background: #000 !important;
+    color: #00ff00 !important;
+    border: 2px solid #00ff00 !important;
+    font-family: "Courier New", monospace;
+}
+
+/* ---------- Tables ---------- */
+body.theme-geocities table {
+    background: #fffbe6;
+    border: 3px solid #ff00ff;
+}
+
+body.theme-geocities th {
+    background: #ffff00;
+    color: #000;
+}
+
+body.theme-geocities td {
+    color: #000;
+    border-color: #ff00ff !important;
+}
+
+/* ---------- Lists ---------- */
+body.theme-geocities .list-group-item {
+    background: #fffbe6;
+    color: #000;
+    border: 1px dashed #ff00ff;
+    border-radius: 0;
+}
+
+/* ---------- Footer ---------- */
+body.theme-geocities footer {
+    background: #000 !important;
+    border-top: 4px double #ffff00;
+    color: #00ff00 !important;
+}
+
+body.theme-geocities footer a {
+    color: #ffff00;
+}
+
+/* ---------- Blink + marquee helpers (injected by theme-switcher.js) ---------- */
+@keyframes geocities-blink {
+    50% { opacity: 0; }
+}
+
+.geocities-blink {
+    animation: geocities-blink 1s step-start infinite;
+}
+
+.geocities-marquee-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+    background: #000;
+    border-top: 3px solid #ffff00;
+    border-bottom: 3px solid #ffff00;
+    padding: 6px 0;
+}
+
+.geocities-marquee {
+    display: inline-block;
+    padding-left: 100%;
+    animation: geocities-scroll 16s linear infinite;
+    color: #00ff00;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@keyframes geocities-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}

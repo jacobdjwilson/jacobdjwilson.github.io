@@ -1,0 +1,240 @@
+/*!
+* Jacob's Portfolio - Theme: Windows 95
+* Scoped entirely under body.theme-win95 so it only activates when selected
+* via the theme switcher in the top-left nav. Leans on real Bootstrap
+* components (.btn, .card, .navbar, .table, .list-group) and simply
+* re-skins them with the classic 3D bevel look using border-style: outset/inset.
+*/
+
+body.theme-win95 {
+    background: #008080 !important; /* classic teal desktop */
+    color: #000;
+    font-family: "MS Sans Serif", Tahoma, "Segoe UI", Geneva, sans-serif;
+    font-size: 14px;
+}
+
+body.theme-win95 h1,
+body.theme-win95 h2,
+body.theme-win95 h3,
+body.theme-win95 h4,
+body.theme-win95 h5,
+body.theme-win95 h6 {
+    font-family: inherit;
+}
+
+/* ---------- Nav bar -> title bar ---------- */
+body.theme-win95 #mainNav {
+    background: linear-gradient(90deg, #000080, #1084d0) !important;
+    border-bottom: 2px solid #000;
+    box-shadow: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+body.theme-win95 #mainNav .navbar-brand,
+body.theme-win95 #mainNav .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+body.theme-win95 #mainNav .nav-link:hover {
+    text-decoration: underline;
+}
+
+body.theme-win95 .navbar-toggler {
+    border: 2px outset #c0c0c0;
+    border-radius: 0;
+    background: #c0c0c0;
+}
+
+/* ---------- Buttons -> 3D chunky Win95 buttons ---------- */
+body.theme-win95 .btn {
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    border-radius: 0;
+    color: #000 !important;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+
+body.theme-win95 .btn:hover {
+    background: #d4d0c8;
+    color: #000 !important;
+}
+
+body.theme-win95 .btn:active,
+body.theme-win95 .btn.active {
+    border-style: inset;
+}
+
+body.theme-win95 .btn-outline-light {
+    background: #c0c0c0;
+    border-color: #c0c0c0;
+    color: #000 !important;
+}
+
+/* Theme dropdown itself gets the Win95 treatment */
+body.theme-win95 .dropdown-menu {
+    border-radius: 0;
+    border: 2px outset #c0c0c0;
+    background: #c0c0c0;
+    font-family: inherit;
+}
+
+body.theme-win95 .dropdown-item:hover,
+body.theme-win95 .dropdown-item:focus {
+    background: #000080;
+    color: #fff;
+}
+
+/* ---------- Sections ---------- */
+body.theme-win95 section.bg-white,
+body.theme-win95 section.bg-light {
+    background: #c0c0c0 !important;
+}
+
+body.theme-win95 h2 {
+    border-bottom: 2px groove #808080;
+    padding-bottom: 0.35rem;
+}
+
+body.theme-win95 h6 samp {
+    background: #000;
+    color: #0f0;
+    padding: 2px 8px;
+    border: 2px inset #c0c0c0;
+    display: inline-block;
+    font-family: "Courier New", monospace;
+}
+
+/* ---------- Cards -> little windows ---------- */
+body.theme-win95 .card {
+    border-radius: 0;
+    border: 2px outset #c0c0c0;
+    background: #c0c0c0;
+    box-shadow: none;
+}
+
+body.theme-win95 .card-body {
+    background: #c0c0c0;
+}
+
+body.theme-win95 .card-header {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 0;
+    border-bottom: 2px solid #000;
+}
+
+body.theme-win95 .card.w-100 .card-body,
+body.theme-win95 .card p {
+    background: #fff;
+    border: 2px inset #c0c0c0;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ---------- Timeline ---------- */
+body.theme-win95 ul.timeline:before {
+    background: #808080;
+}
+
+body.theme-win95 ul.timeline > li:before {
+    background: #000080;
+    border: 2px outset #c0c0c0;
+    border-radius: 0;
+}
+
+body.theme-win95 .position-absolute.top-50.start-0.w-100.border-top {
+    border-color: #808080 !important;
+}
+
+body.theme-win95 .bg-light.text-secondary.border.rounded {
+    background: #fff !important;
+    border: 2px inset #c0c0c0 !important;
+    border-radius: 0 !important;
+    color: #000 !important;
+    font-family: "Courier New", monospace;
+}
+
+/* ---------- Tables ---------- */
+body.theme-win95 table {
+    border: 2px inset #c0c0c0;
+}
+
+body.theme-win95 th {
+    background: #c0c0c0;
+    border: 1px solid #808080 !important;
+}
+
+body.theme-win95 td {
+    background: #fff;
+    border: 1px solid #808080 !important;
+}
+
+body.theme-win95 .table-hover > tbody > tr:hover > * {
+    background: #000080;
+    color: #fff;
+}
+
+/* ---------- Lists ---------- */
+body.theme-win95 .list-group-item {
+    border-radius: 0;
+    border: 1px solid #808080;
+    background: #fff;
+}
+
+/* ---------- Footer ---------- */
+body.theme-win95 footer {
+    background: #c0c0c0 !important;
+    border-top: 2px outset #c0c0c0;
+    color: #000 !important;
+    font-family: inherit;
+    padding-bottom: 2.75rem !important; /* room for injected taskbar */
+}
+
+body.theme-win95 footer a {
+    color: #000080;
+}
+
+/* ---------- Injected taskbar (added by theme-switcher.js) ---------- */
+.win95-taskbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 32px;
+    background: #c0c0c0;
+    border-top: 2px outset #c0c0c0;
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+    z-index: 1050;
+    font-family: "MS Sans Serif", Tahoma, sans-serif;
+    font-size: 13px;
+}
+
+.win95-start-btn {
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    font-weight: bold;
+    padding: 2px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+}
+
+.win95-start-btn:active {
+    border-style: inset;
+}
+
+.win95-taskbar-clock {
+    margin-left: auto;
+    border: 2px inset #c0c0c0;
+    padding: 2px 8px;
+    background: #c0c0c0;
+}

@@ -111,7 +111,7 @@
         });
     }
 
-    function initThemeSwitcher() {
+    function init() {
         var options = document.querySelectorAll(".theme-option");
         options.forEach(function (opt) {
             opt.addEventListener("click", function (e) {
@@ -131,8 +131,8 @@
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initThemeSwitcher);
+        document.addEventListener("DOMContentLoaded", init);
     } else {
-        initThemeSwitcher();
+        init();
     }
 })();

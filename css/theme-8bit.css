@@ -1,10 +1,3 @@
-/*!
-* Jacob's Portfolio - Theme: 8-Bit RPG
-* Scoped entirely under body.theme-8bit so it only activates when selected
-* via the theme switcher. Pairs with the "Press Start 2P" pixel font, which
-* theme-switcher.js lazy-loads from Google Fonts only when this theme is picked.
-*/
-
 body.theme-8bit {
     background: #5c94fc !important; /* classic overworld sky blue */
     color: #000;

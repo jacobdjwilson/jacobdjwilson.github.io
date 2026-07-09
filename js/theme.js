@@ -1,20 +1,15 @@
 /*!
- * Jacob's Portfolio - Theme Switcher
- * Handles the theme dropdown in the top-left of the nav. Applies a
- * body.theme-* class matching the CSS files in /css, remembers the
- * visitor's choice, and adds a couple of small, reversible decorative
- * touches (a Win95 taskbar, a GeoCities marquee) that are removed again
- * if the visitor switches to a different theme.
- */
+* Jacob's Portfolio v1.6 - A GitHub Pages Project
+* Last Modified July 2026 | This Source Code is Free for re-use
+* Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
+*/
+
 (function () {
     "use strict";
 
     var STORAGE_KEY = "portfolio-theme";
     var THEMES = ["win95", "geocities", "8bit", "terminal"]; // "default" = no class
 
-    // Fonts that aren't safe to assume are already installed on the
-    // visitor's system. Loaded on demand, once, the first time a theme
-    // that needs them is selected.
     var FONT_URLS = {
         "8bit": "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
     };
@@ -116,7 +111,7 @@
         });
     }
 
-    function init() {
+    function initThemeSwitcher() {
         var options = document.querySelectorAll(".theme-option");
         options.forEach(function (opt) {
             opt.addEventListener("click", function (e) {
@@ -136,8 +131,8 @@
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
+        document.addEventListener("DOMContentLoaded", initThemeSwitcher);
     } else {
-        init();
+        initThemeSwitcher();
     }
 })();

@@ -1,11 +1,3 @@
-/*!
-* Jacob's Portfolio - Theme: Windows 95
-* Scoped entirely under body.theme-win95 so it only activates when selected
-* via the theme switcher in the top-left nav. Leans on real Bootstrap
-* components (.btn, .card, .navbar, .table, .list-group) and simply
-* re-skins them with the classic 3D bevel look using border-style: outset/inset.
-*/
-
 body.theme-win95 {
     background: #008080 !important; /* classic teal desktop */
     color: #000;

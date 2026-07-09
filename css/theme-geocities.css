@@ -1,10 +1,3 @@
-/*!
-* Jacob's Portfolio - Theme: GeoCities
-* Scoped entirely under body.theme-geocities so it only activates when
-* selected via the theme switcher. Uses CSS-only tiled backgrounds and
-* animation - no external image assets required.
-*/
-
 body.theme-geocities {
     background-color: #000033 !important;
     background-image:

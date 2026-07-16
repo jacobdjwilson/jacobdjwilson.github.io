@@ -437,10 +437,14 @@
 
     function applyTheme(theme) {
         var body = document.body;
+        var backgroundVideo = document.getElementById("background-video");
 
         THEMES.forEach(function (t) {
             body.classList.remove("theme-" + t);
         });
+        if (backgroundVideo) {
+            backgroundVideo.style.display = "block";
+        }
         clearDecorations();
 
         CURRENT_THEME = theme && theme !== "default" ? theme : "default";
@@ -448,6 +452,10 @@
         if (CURRENT_THEME !== "default") {
             body.classList.add("theme-" + CURRENT_THEME);
             ensureFontLoaded(CURRENT_THEME);
+
+            if (backgroundVideo) {
+                backgroundVideo.style.display = "none";
+            }
 
             if (CURRENT_THEME === "win95") {
                 addWin95Taskbar();

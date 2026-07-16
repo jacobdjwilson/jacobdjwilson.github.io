@@ -1,14 +1,51 @@
 body.theme-geocities {
-    background-color: #000033 !important;
-    background-image:
-        radial-gradient(circle at 10% 20%, #ffff00 1px, transparent 1.5px),
-        radial-gradient(circle at 60% 70%, #00ffff 1px, transparent 1.5px),
-        radial-gradient(circle at 80% 15%, #ff00ff 1px, transparent 1.5px),
-        radial-gradient(circle at 30% 85%, #ffffff 1px, transparent 1.5px);
-    background-size: 60px 60px, 90px 90px, 120px 120px, 45px 45px;
-    background-repeat: repeat;
+    background-color: #000014 !important;
+    background-image: radial-gradient(circle at 50% 40%, #1a0033 0%, #000014 70%);
     color: #fff;
     font-family: "Times New Roman", Times, serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.theme-geocities::before,
+body.theme-geocities::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+}
+
+body.theme-geocities::before {
+    z-index: -2;
+    background-image:
+        radial-gradient(circle, #ffffff 1px, transparent 1.5px),
+        radial-gradient(circle, #ffff00 1px, transparent 1.5px),
+        radial-gradient(circle, #00ffff 1px, transparent 1.5px),
+        radial-gradient(circle, #ff00ff 1px, transparent 1.5px);
+    background-position: 10% 20%, 60% 70%, 80% 15%, 30% 85%;
+    animation: warp-stars-near 2.4s linear infinite;
+}
+
+body.theme-geocities::after {
+    z-index: -1;
+    background-image:
+        radial-gradient(circle, #ffffff 1px, transparent 1.2px),
+        radial-gradient(circle, #33ccff 1px, transparent 1.2px),
+        radial-gradient(circle, #ff66ff 1px, transparent 1.2px);
+    background-position: 15% 45%, 75% 25%, 45% 80%;
+    animation: warp-stars-far 4.6s linear infinite;
+}
+
+@keyframes warp-stars-near {
+    0%   { background-size: 15px 15px, 22px 22px, 18px 18px, 26px 26px; opacity: 0; }
+    8%   { opacity: 1; }
+    100% { background-size: 260px 260px, 320px 320px, 280px 280px, 340px 340px; opacity: 0; }
+}
+
+@keyframes warp-stars-far {
+    0%   { background-size: 50px 50px, 75px 75px, 100px 100px; opacity: 0.25; }
+    100% { background-size: 420px 420px, 520px 520px, 620px 620px; opacity: 0; }
 }
 
 body.theme-geocities h1,
@@ -30,7 +67,6 @@ body.theme-geocities h4 {
     100% { background-position: 400% 50%; }
 }
 
-/* ---------- Links: classic unvisited/visited blue+purple ---------- */
 body.theme-geocities a {
     color: #33ffff;
 }
@@ -43,7 +79,6 @@ body.theme-geocities a:hover {
     color: #ffff00;
 }
 
-/* ---------- Nav bar ---------- */
 body.theme-geocities #mainNav {
     background: #000 !important;
     border-bottom: 4px double #ffff00;
@@ -71,10 +106,65 @@ body.theme-geocities .dropdown-item:hover {
     background: #ffff00;
 }
 
-/* ---------- Sections ---------- */
 body.theme-geocities section.bg-white,
 body.theme-geocities section.bg-light {
     background: rgba(0, 0, 51, 0.55) !important;
+}
+
+body.theme-geocities section h2 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.6rem;
+}
+
+body.theme-geocities section h2::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%23FFF' d='M5 3h6v1H5zM4 4h1v1H4zm7 0h1v1h-1zM3 5h1v1H3zm9 0h1v1h-1zM3 6h1v1H3zm9 0h1v1h-1zM3 7h1v1H3zm9 0h1v1h-1zM4 8h8v1H4zM5 9h6v1H5zM6 10h4v1H6z'/%3E%3Cpath fill='%23FFF' d='M4 11h1v1H4zm7 0h1v1h-1zM5 12h1v1H5zm5 0h1v1h-1zM6 13h1v1H6zm3 0h1v1h-1z'/%3E%3C/svg%3E");
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-size: 0.9em;
+    animation: skull-spin 3s linear infinite;
+}
+
+body.theme-geocities section h2::after {
+    content: 'UNDER CONSTRUCTION';
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin-top: 0.5rem;
+    padding: 4px 12px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #000;
+    background: repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px);
+    border: 3px solid #ff00ff;
+    animation: neon-flash-border 0.8s steps(2) infinite;
+    padding-left: 30px;
+    position: relative;
+}
+
+body.theme-geocities section h2::after::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%23ff0' d='M1 14h14v1H1z'/%3E%3Cpath fill='%23000' d='M2 13h2v1H2zm4 0h2v1H6zm4 0h2v1h-1zm-9-1h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 11h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 10h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 9h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 8h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 7h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 6h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 5h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M2 4h1v1H2zm11 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M3 3h1v1H3zm9 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M4 2h2v1H4zm6 0h2v1h-2z'/%3E%3Cpath fill='%23ff0' d='M6 1h4v1H6z'/%3E%3C/svg%3E");
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes skull-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes neon-flash-border {
+    0%, 100% {
+        border-color: #ff00ff;
+        box-shadow: 0 0 6px 2px #ff00ff, 0 0 14px 4px #00ffff;
+    }
+    50% {
+        border-color: #00ffff;
+        box-shadow: 0 0 6px 2px #00ffff, 0 0 14px 4px #ff00ff;
+    }
 }
 
 body.theme-geocities h6 samp {
@@ -90,13 +180,18 @@ body.theme-geocities .lead {
     text-shadow: 1px 1px 2px #000;
 }
 
-/* ---------- Cards -> chunky bordered web-1.0 boxes ---------- */
 body.theme-geocities .card {
     background: #fffbe6;
     color: #000;
-    border: 4px dashed #ff00ff;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #ffffff #ff00ff #ff00ff #ffffff;
     border-radius: 0;
-    box-shadow: none;
+    box-shadow:
+        inset 1px 1px 0 #fff,
+        inset -2px -2px 0 #cc00cc,
+        3px 3px 0 #000;
+    image-rendering: pixelated;
 }
 
 body.theme-geocities .card-body,
@@ -111,22 +206,36 @@ body.theme-geocities .card-header {
     border-bottom: 3px solid #ff00ff;
 }
 
-/* ---------- Buttons ---------- */
 body.theme-geocities .btn {
     background: #ffff00;
     color: #000 !important;
-    border: 3px solid #ff00ff;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #ffffff #660066 #660066 #ffffff;
+    box-shadow:
+        inset 1px 1px 0 #fff,
+        inset -1px -1px 0 #660066,
+        2px 2px 0 #000;
     border-radius: 0;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-weight: bold;
+    image-rendering: pixelated;
 }
 
 body.theme-geocities .btn:hover {
     background: #ff00ff;
     color: #fff !important;
+    border-color: #ffffff #000080 #000080 #ffffff;
 }
 
-/* ---------- Timeline ---------- */
+body.theme-geocities .btn:active {
+    border-color: #660066 #ffffff #ffffff #660066;
+    box-shadow:
+        inset 2px 2px 0 #000,
+        inset -1px -1px 0 #fff;
+    transform: translate(2px, 2px);
+}
+
 body.theme-geocities ul.timeline:before {
     background: #ff00ff;
 }
@@ -143,7 +252,6 @@ body.theme-geocities .bg-light.text-secondary.border.rounded {
     font-family: "Courier New", monospace;
 }
 
-/* ---------- Tables ---------- */
 body.theme-geocities table {
     background: #fffbe6;
     border: 3px solid #ff00ff;
@@ -159,7 +267,6 @@ body.theme-geocities td {
     border-color: #ff00ff !important;
 }
 
-/* ---------- Lists ---------- */
 body.theme-geocities .list-group-item {
     background: #fffbe6;
     color: #000;
@@ -167,7 +274,6 @@ body.theme-geocities .list-group-item {
     border-radius: 0;
 }
 
-/* ---------- Footer ---------- */
 body.theme-geocities footer {
     background: #000 !important;
     border-top: 4px double #ffff00;
@@ -178,13 +284,86 @@ body.theme-geocities footer a {
     color: #ffff00;
 }
 
-/* ---------- Blink + marquee helpers (injected by theme-switcher.js) ---------- */
 @keyframes geocities-blink {
-    50% { opacity: 0; }
+    0%   { opacity: 1; }
+    8%   { opacity: 0; }
+    13%  { opacity: 1; }
+    19%  { opacity: 0; }
+    27%  { opacity: 1; }
+    33%  { opacity: 0; }
+    41%  { opacity: 1; }
+    47%  { opacity: 0; }
+    56%  { opacity: 1; }
+    61%  { opacity: 0; }
+    69%  { opacity: 1; }
+    74%  { opacity: 0; }
+    83%  { opacity: 1; }
+    89%  { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 .geocities-blink {
-    animation: geocities-blink 1s step-start infinite;
+    animation: geocities-blink 0.35s steps(1, end) infinite;
+}
+
+@keyframes hamster-dance {
+    0%   { transform: translateY(0)    rotate(0deg)   scaleX(1); }
+    10%  { transform: translateY(-6px) rotate(-12deg) scaleX(1); }
+    20%  { transform: translateY(0)    rotate(12deg)  scaleX(1); }
+    30%  { transform: translateY(-6px) rotate(-12deg) scaleX(1); }
+    40%  { transform: translateY(0)    rotate(12deg)  scaleX(1); }
+    50%  { transform: translateY(-12px) rotate(0deg)  scaleX(-1); }
+    60%  { transform: translateY(0)    rotate(360deg) scaleX(-1); }
+    70%  { transform: translateY(-6px) rotate(0deg)   scaleX(1); }
+    80%  { transform: translateY(0)    rotate(-12deg) scaleX(1); }
+    90%  { transform: translateY(-6px) rotate(12deg)  scaleX(1); }
+    100% { transform: translateY(0)    rotate(0deg)   scaleX(1); }
+}
+
+body.theme-geocities #mainNav .navbar-brand::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%23D2B48C' d='M5 3h6v1h-1v1h-1v1h-2V5H6V4H5V3z'/%3E%3Cpath fill='%23000' d='M6 4h1v1H6zm3 0h1v1h-1z'/%3E%3Cpath fill='%23D2B48C' d='M4 6h1v1H4zm7 0h1v1h-1z'/%3E%3Cpath fill='%23FFC0CB' d='M3 7h2v1H3zm8 0h2v1h-2z'/%3E%3Cpath fill='%23D2B48C' d='M2 8h1v1H2zm11 0h1v1h-1z'/%3E%3Cpath fill='%23D2B48C' d='M3 9h10v1H3z'/%3E%3Cpath fill='%23D2B48C' d='M4 10h8v1H4z'/%3E%3Cpath fill='%23D2B48C' d='M5 11h6v1H5z'/%3E%3C/svg%3E");
+    display: inline-block;
+    margin-left: 0.4rem;
+    animation: hamster-dance 0.8s ease-in-out infinite;
+}
+
+body.theme-geocities footer::before {
+    content: '';
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    letter-spacing: 0.5rem;
+    padding: 6px 0;
+    background: repeating-linear-gradient(90deg, #ffff00 0 20px, #000 20px 40px);
+    animation: hamster-dance 0.6s ease-in-out infinite;
+    height: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23D2B48C' d='M5 3h6v1h-1v1h-1v1h-2V5H6V4H5V3z'/%3E%3Cpath fill='%23000' d='M6 4h1v1H6zm3 0h1v1h-1z'/%3E%3Cpath fill='%23D2B48C' d='M4 6h1v1H4zm7 0h1v1h-1z'/%3E%3Cpath fill='%23FFC0CB' d='M3 7h2v1H3zm8 0h2v1h-2z'/%3E%3Cpath fill='%23D2B48C' d='M2 8h1v1H2zm11 0h1v1h-1z'/%3E%3Cpath fill='%23D2B48C' d='M3 9h10v1H3z'/%3E%3Cpath fill='%23D2B48C' d='M4 10h8v1H4z'/%3E%3Cpath fill='%23D2B48C' d='M5 11h6v1H5z'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+}
+
+body.theme-geocities footer::after {
+    content: 'YOU ARE VISITOR NUMBER: 001337';
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin: 8px auto 0;
+    padding: 4px 10px;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #00ff00;
+    background: #000;
+    border: 2px solid #00ff00;
+    position: relative;
+    padding-left: 30px;
+}
+
+body.theme-geocities footer::after::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%230f0' d='M2 3h1v1H2zm11 0h1v1h-1zM3 4h1v1H3zm9 0h1v1h-1zM4 5h1v1H4zm7 0h1v1h-1zM5 6h1v1H5zm5 0h1v1h-1zM6 7h4v1H6zM4 8h1v1H4zm7 0h1v1h-1zM3 9h1v1H3zm9 0h1v1h-1zM2 10h1v1H2zm11 0h1v1h-1zM4 11h2v1H4zm6 0h2v1h-2zM6 12h1v1H6zm3 0h1v1h-1z'/%3E%3C/svg%3E");
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .geocities-marquee-wrap {

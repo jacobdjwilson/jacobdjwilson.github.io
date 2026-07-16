@@ -31,11 +31,14 @@
         if (taskbar) taskbar.remove();
         var marquee = document.getElementById("geocities-marquee-wrap");
         if (marquee) marquee.remove();
+        var header8bit = document.getElementById("8bit-header");
+        if (header8bit) header8bit.remove();
         if (window._win95ClockInterval) {
             clearInterval(window._win95ClockInterval);
             window._win95ClockInterval = null;
         }
         removeWin95Extras();
+        remove8bitExtras();
     }
 
     function addGeocitiesMarquee() {
@@ -74,6 +77,55 @@
         }
         tick();
         window._win95ClockInterval = setInterval(tick, 1000 * 15);
+    }
+
+    function add8bitHeader() {
+        var header = document.createElement("div");
+        header.id = "8bit-header";
+        header.className = "bit-header";
+        header.innerHTML =
+            '<div><span>MARIO</span><span id="8bit-score">000000</span></div>' +
+            '<div><span class="bit-coin-icon"></span><span id="8bit-coins">x00</span></div>' +
+            '<div><span>WORLD</span><span>1-1</span></div>' +
+            '<div><span>TIME</span><span id="8bit-time"></span></div>';
+
+        document.body.insertBefore(header, document.body.firstChild);
+
+        var score = 0;
+        var coins = 0;
+        var time = 400;
+
+        var scoreEl = document.getElementById("8bit-score");
+        var coinsEl = document.getElementById("8bit-coins");
+        var timeEl = document.getElementById("8bit-time");
+
+        function updateScore(newScore) {
+            score = newScore;
+            if (scoreEl) scoreEl.textContent = String(score).padStart(6, "0");
+        }
+
+        function updateCoins(newCoins) {
+            coins = newCoins;
+            if (coinsEl) coinsEl.textContent = "x" + String(coins).padStart(2, "0");
+        }
+
+        function handleScroll() {
+            var newScore = Math.min(999999, Math.floor(window.scrollY * 1.35));
+            updateScore(newScore);
+        }
+
+        function handleClick() {
+            updateCoins(Math.min(99, coins + 1));
+        }
+
+        window._8bitScrollListener = handleScroll;
+        window._8bitClickListener = handleClick;
+        window.addEventListener("scroll", window._8bitScrollListener);
+        document.addEventListener("click", window._8bitClickListener);
+
+        updateScore(0);
+        updateCoins(0);
+        if (timeEl) timeEl.textContent = time;
     }
 
     function createDesktopIcons() {
@@ -430,6 +482,17 @@
         }
     }
 
+    function remove8bitExtras() {
+        if (window._8bitScrollListener) {
+            window.removeEventListener("scroll", window._8bitScrollListener);
+            window._8bitScrollListener = null;
+        }
+        if (window._8bitClickListener) {
+            document.removeEventListener("click", window._8bitClickListener);
+            window._8bitClickListener = null;
+        }
+    }
+
     function initWin95Extras() {
         createDesktopIcons();
         buildStartMenu();
@@ -462,6 +525,7 @@
                 initWin95Extras();
             }
             if (CURRENT_THEME === "geocities") addGeocitiesMarquee();
+            if (CURRENT_THEME === "8bit") add8bitHeader();
         }
 
         updateActiveMenuItem(CURRENT_THEME);

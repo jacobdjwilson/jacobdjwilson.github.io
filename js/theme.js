@@ -1,13 +1,7 @@
-/*!
-* Jacob's Portfolio v1.6 - A GitHub Pages Project
-* Last Modified July 2026 | This Source Code is Free for re-use
-* Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
-*/
-
 (function () {
     "use strict";
 
-    var THEMES = ["win95", "geocities", "8bit", "terminal"]; // "default" = no class
+    var THEMES = ["win95", "geocities", "8bit", "terminal"]; 
     var CURRENT_THEME = "default";
     var _dialogYesCallback = null;
 
@@ -33,6 +27,7 @@
         if (marquee) marquee.remove();
         var header8bit = document.getElementById("8bit-header");
         if (header8bit) header8bit.remove();
+        
         if (window._win95ClockInterval) {
             clearInterval(window._win95ClockInterval);
             window._win95ClockInterval = null;
@@ -47,8 +42,8 @@
         wrap.id = "geocities-marquee-wrap";
         wrap.className = "geocities-marquee-wrap";
         wrap.innerHTML =
-            '<span class="geocities-marquee">🚧 UNDER CONSTRUCTION &mdash; BEST VIEWED IN NETSCAPE NAVIGATOR AT 800x600 &mdash; ' +
-            'THANKS FOR VISITING MY HOMEPAGE! &mdash; SIGN MY GUESTBOOK! 🚧&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+            '<span class="geocities-marquee">🚧 UNDER CONSTRUCTION - BEST VIEWED IN NETSCAPE NAVIGATOR AT 800x600 - ' +
+            'THANKS FOR VISITING MY HOMEPAGE! - SIGN MY GUESTBOOK! 🚧&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         if (nav && nav.parentNode) {
             nav.parentNode.insertBefore(wrap, nav.nextSibling);
         } else {
@@ -79,54 +74,133 @@
         window._win95ClockInterval = setInterval(tick, 1000 * 15);
     }
 
+    function showFloatText(text, x, y, color) {
+        var floatEl = document.createElement("div");
+        floatEl.className = "player-float-score";
+        floatEl.textContent = text;
+        floatEl.style.left = (x - 12) + "px";
+        floatEl.style.top = (y - 48) + "px";
+        if(color) floatEl.style.color = color;
+        document.body.appendChild(floatEl);
+        setTimeout(function() {
+            floatEl.remove();
+        }, 800);
+    }
+
     function add8bitHeader() {
+        if(document.getElementById("8bit-header")) return;
         var header = document.createElement("div");
         header.id = "8bit-header";
         header.className = "bit-header";
         header.innerHTML =
-            '<div><span>MARIO</span><span id="8bit-score">000000</span></div>' +
+            '<div><span>Player 1</span><span id="8bit-score">000000</span></div>' +
             '<div><span class="bit-coin-icon"></span><span id="8bit-coins">x00</span></div>' +
             '<div><span>WORLD</span><span>1-1</span></div>' +
-            '<div><span>TIME</span><span id="8bit-time"></span></div>';
+            '<div><span>TIME</span><span id="8bit-time">400</span></div>';
 
         document.body.insertBefore(header, document.body.firstChild);
 
-        var score = 0;
-        var coins = 0;
-        var time = 400;
+        window._8bitScore = 0;
+        window._8bitCoins = 0;
+        window._8bitTime = 400;
 
         var scoreEl = document.getElementById("8bit-score");
         var coinsEl = document.getElementById("8bit-coins");
         var timeEl = document.getElementById("8bit-time");
 
-        function updateScore(newScore) {
-            score = newScore;
-            if (scoreEl) scoreEl.textContent = String(score).padStart(6, "0");
-        }
+        window.update8bitScore = function(amount) {
+            window._8bitScore += amount;
+            if (scoreEl) scoreEl.textContent = String(window._8bitScore).padStart(6, "0");
+        };
 
-        function updateCoins(newCoins) {
-            coins = newCoins;
-            if (coinsEl) coinsEl.textContent = "x" + String(coins).padStart(2, "0");
-        }
+        window.update8bitCoins = function(amount) {
+            window._8bitCoins += amount;
+            if (window._8bitCoins >= 100) {
+                window._8bitCoins = 0;
+                window.update8bitScore(1000);
+                showFloatText("1-UP!", window.innerWidth/2, window.innerHeight/2, "#00e756");
+            }
+            if (coinsEl) coinsEl.textContent = "x" + String(window._8bitCoins).padStart(2, "0");
+        };
 
-        function handleScroll() {
-            var newScore = Math.min(999999, Math.floor(window.scrollY * 1.35));
-            updateScore(newScore);
-        }
+        if(window._8bitTimer) clearInterval(window._8bitTimer);
+        window._8bitTimer = setInterval(function() {
+            if(CURRENT_THEME !== "8bit") {
+                clearInterval(window._8bitTimer);
+                return;
+            }
+            if(window._8bitTime > 0) {
+                window._8bitTime--;
+                if(timeEl) timeEl.textContent = String(window._8bitTime).padStart(3, "0");
+            }
+        }, 1000);
 
-        function handleClick() {
-            updateCoins(Math.min(99, coins + 1));
-        }
-
-        window._8bitScrollListener = handleScroll;
-        window._8bitClickListener = handleClick;
-        window.addEventListener("scroll", window._8bitScrollListener);
-        document.addEventListener("click", window._8bitClickListener);
-
-        updateScore(0);
-        updateCoins(0);
-        if (timeEl) timeEl.textContent = time;
+        spawnEnemy();
     }
+
+    function spawnEnemy() {
+        if(document.getElementById("enemy-shell")) return;
+        var shell = document.createElement("div");
+        shell.id = "enemy-shell";
+        shell.className = "enemy-shell";
+        document.body.appendChild(shell);
+
+        var pos = 0;
+        var speed = 3;
+        var dir = 1;
+
+        function animateShell() {
+            if (CURRENT_THEME !== "8bit") {
+                shell.remove();
+                return;
+            }
+            pos += speed * dir;
+            if (pos > window.innerWidth - 32) {
+                dir = -1;
+            } else if (pos < 0) {
+                dir = 1;
+            }
+            shell.style.left = pos + "px";
+            shell.style.transform = "scaleX(" + (dir === 1 ? -1 : 1) + ")";
+            requestAnimationFrame(animateShell);
+        }
+        animateShell();
+    }
+
+    window._8bitBlockClick = function(e) {
+        if(CURRENT_THEME !== "8bit") return;
+        var block = e.target.closest(".btn, .card");
+        
+        if(block && block.classList.contains("btn") && block.classList.contains("hit")) return;
+
+        if (block) {
+            if(block.classList.contains("btn")) {
+                block.classList.add("hit");
+            }
+
+            var rect = block.getBoundingClientRect();
+            var x = rect.left + (rect.width / 2) + window.scrollX;
+            var y = rect.top + window.scrollY;
+
+            var coin = document.createElement("div");
+            coin.className = "player-coin-anim";
+            coin.style.left = (x - 12) + "px";
+            coin.style.top = (y - 36) + "px";
+            document.body.appendChild(coin);
+
+            showFloatText("100", x, y, "#fff");
+
+            setTimeout(function() {
+                if(coin) coin.remove();
+            }, 600);
+
+            if(window.update8bitScore) window.update8bitScore(100);
+            if(window.update8bitCoins) window.update8bitCoins(1);
+        }
+    };
+    
+    document.removeEventListener("click", window._8bitBlockClick);
+    document.addEventListener("click", window._8bitBlockClick);
 
     function createDesktopIcons() {
         if (document.getElementById("win95-desktop-icons")) return;
@@ -461,7 +535,6 @@
             document.removeEventListener("keydown", dismissBSOD);
             document.removeEventListener("click", dismissBSOD);
         }
-
         
         setTimeout(function() {
             document.addEventListener("keydown", dismissBSOD);
@@ -483,14 +556,12 @@
     }
 
     function remove8bitExtras() {
-        if (window._8bitScrollListener) {
-            window.removeEventListener("scroll", window._8bitScrollListener);
-            window._8bitScrollListener = null;
+        if (window._8bitTimer) {
+            clearInterval(window._8bitTimer);
+            window._8bitTimer = null;
         }
-        if (window._8bitClickListener) {
-            document.removeEventListener("click", window._8bitClickListener);
-            window._8bitClickListener = null;
-        }
+        var shell = document.getElementById("enemy-shell");
+        if (shell) shell.remove();
     }
 
     function initWin95Extras() {

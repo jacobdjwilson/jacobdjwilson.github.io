@@ -523,3 +523,50 @@ body.theme-8bit td a:hover {
         box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
     }
 }
+
+.enemy-shell {
+    cursor: pointer;
+}
+
+.enemy-shell.stomped {
+    animation: shell-spin 0.25s linear infinite !important;
+    filter: brightness(1.25);
+}
+
+@keyframes shell-spin {
+    0% { transform: scale(1.1) rotate(0deg); }
+    50% { transform: scale(1.25) rotate(180deg); }
+    100% { transform: scale(1.1) rotate(360deg); }
+}
+
+.bit-sound-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0 4px;
+    color: #ffd700;
+    line-height: 1;
+}
+
+.bit-sound-btn:hover {
+    transform: scale(1.2);
+}
+
+body.theme-8bit .card {
+    transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+body.theme-8bit .card:hover {
+    transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .enemy-shell {
+        display: none !important;
+    }
+    .player-coin-anim {
+        animation: none;
+    }
+}
+

@@ -136,19 +136,16 @@ body.theme-geocities section h2::after {
     font-size: 0.8rem;
     font-weight: bold;
     color: #000;
-    background: repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%23ff0' d='M1 14h14v1H1z'/%3E%3Cpath fill='%23000' d='M2 13h2v1H2zm4 0h2v1H6zm4 0h2v1h-1zm-9-1h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 11h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 10h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 9h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 8h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 7h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 6h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 5h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M2 4h1v1H2zm11 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M3 3h1v1H3zm9 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M4 2h2v1H4zm6 0h2v1h-2z'/%3E%3Cpath fill='%23ff0' d='M6 1h4v1H6z'/%3E%3C/svg%3E"),
+        repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px);
+    background-repeat: no-repeat, repeat;
+    background-position: 8px center, 0 0;
+    background-size: 16px 16px, auto;
     border: 3px solid #ff00ff;
     animation: neon-flash-border 0.8s steps(2) infinite;
     padding-left: 30px;
     position: relative;
-}
-
-body.theme-geocities section h2::after::before {
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%23ff0' d='M1 14h14v1H1z'/%3E%3Cpath fill='%23000' d='M2 13h2v1H2zm4 0h2v1H6zm4 0h2v1h-1zm-9-1h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 11h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 10h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 9h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 8h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 7h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M1 6h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M1 5h1v1H1zm13 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M2 4h1v1H2zm11 0h1v1h-1z'/%3E%3Cpath fill='%23ff0' d='M3 3h1v1H3zm9 0h1v1h-1z'/%3E%3Cpath fill='%23000' d='M4 2h2v1H4zm6 0h2v1h-2z'/%3E%3Cpath fill='%23ff0' d='M6 1h4v1H6z'/%3E%3C/svg%3E");
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 @keyframes skull-spin {
@@ -352,18 +349,14 @@ body.theme-geocities footer::after {
     font-weight: bold;
     letter-spacing: 2px;
     color: #00ff00;
-    background: #000;
+    background-color: #000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%230f0' d='M2 3h1v1H2zm11 0h1v1h-1zM3 4h1v1H3zm9 0h1v1h-1zM4 5h1v1H4zm7 0h1v1h-1zM5 6h1v1H5zm5 0h1v1h-1zM6 7h4v1H6zM4 8h1v1H4zm7 0h1v1h-1zM3 9h1v1H3zm9 0h1v1h-1zM2 10h1v1H2zm11 0h1v1h-1zM4 11h2v1H4zm6 0h2v1h-2zM6 12h1v1H6zm3 0h1v1h-1z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-size: 16px 16px;
     border: 2px solid #00ff00;
     position: relative;
     padding-left: 30px;
-}
-
-body.theme-geocities footer::after::before {
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='%230f0' d='M2 3h1v1H2zm11 0h1v1h-1zM3 4h1v1H3zm9 0h1v1h-1zM4 5h1v1H4zm7 0h1v1h-1zM5 6h1v1H5zm5 0h1v1h-1zM6 7h4v1H6zM4 8h1v1H4zm7 0h1v1h-1zM3 9h1v1H3zm9 0h1v1h-1zM2 10h1v1H2zm11 0h1v1h-1zM4 11h2v1H4zm6 0h2v1h-2zM6 12h1v1H6zm3 0h1v1h-1z'/%3E%3C/svg%3E");
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .geocities-marquee-wrap {

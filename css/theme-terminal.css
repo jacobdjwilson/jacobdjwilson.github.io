@@ -201,3 +201,155 @@ body.theme-terminal footer a {
     margin-left: 4px;
     animation: terminal-cursor-blink 1s step-start infinite;
 }
+
+/* Ambient CRT glass vignette shadow */
+body.theme-terminal {
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.85);
+}
+
+/* Amber CRT Phosphor Mode */
+body.theme-terminal.terminal-amber {
+    color: #ffb000 !important;
+    text-shadow: 0 0 5px #ffb000;
+}
+
+body.theme-terminal.terminal-amber h1,
+body.theme-terminal.terminal-amber h2,
+body.theme-terminal.terminal-amber h3,
+body.theme-terminal.terminal-amber h4,
+body.theme-terminal.terminal-amber h5,
+body.theme-terminal.terminal-amber h6,
+body.theme-terminal.terminal-amber a,
+body.theme-terminal.terminal-amber .card-body,
+body.theme-terminal.terminal-amber .card-title,
+body.theme-terminal.terminal-amber .card-text,
+body.theme-terminal.terminal-amber .lead {
+    color: #ffb000 !important;
+    text-shadow: 0 0 5px #ffb000;
+}
+
+body.theme-terminal.terminal-amber .terminal-cursor {
+    background: #ffb000 !important;
+}
+
+body.theme-terminal.terminal-amber #mainNav,
+body.theme-terminal.terminal-amber .card,
+body.theme-terminal.terminal-amber .btn,
+body.theme-terminal.terminal-amber h6 samp,
+body.theme-terminal.terminal-amber .dropdown-menu,
+body.theme-terminal.terminal-amber ul.timeline > li:before,
+body.theme-terminal.terminal-amber footer {
+    border-color: #ffb000 !important;
+    box-shadow: 0 0 10px rgba(255, 176, 0, 0.35) !important;
+}
+
+body.theme-terminal.terminal-amber ul.timeline:before {
+    background: #ffb000 !important;
+}
+
+body.theme-terminal.terminal-amber .btn:hover,
+body.theme-terminal.terminal-amber .dropdown-item:hover {
+    background: #ffb000 !important;
+    color: #000 !important;
+}
+
+/* ---------- Terminal Interactive CLI Bar ---------- */
+#terminal-cli-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 2px solid #33ff33;
+    padding: 6px 16px;
+    z-index: 1050;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(51, 255, 51, 0.3);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+}
+
+body.theme-terminal.terminal-amber #terminal-cli-wrap {
+    border-top-color: #ffb000;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 176, 0, 0.3);
+}
+
+.terminal-cli-history {
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.4;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed rgba(51, 255, 51, 0.4);
+    margin-bottom: 6px;
+}
+
+body.theme-terminal.terminal-amber .terminal-cli-history {
+    border-bottom-color: rgba(255, 176, 0, 0.4);
+}
+
+.terminal-cli-history .cmd-entry {
+    opacity: 0.9;
+    margin-bottom: 2px;
+}
+
+.terminal-cli-history .cmd-output {
+    white-space: pre-wrap;
+    margin-bottom: 6px;
+    color: #a3ffa3;
+}
+
+body.theme-terminal.terminal-amber .terminal-cli-history .cmd-output {
+    color: #ffe082;
+}
+
+.terminal-cli-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-cli-prompt {
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+#terminal-cli-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    caret-color: #33ff33;
+}
+
+body.theme-terminal.terminal-amber #terminal-cli-input {
+    caret-color: #ffb000;
+}
+
+.terminal-color-toggle-btn {
+    background: transparent;
+    border: 1px solid currentColor;
+    color: inherit;
+    font-family: inherit;
+    font-size: 11px;
+    padding: 2px 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.terminal-color-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.theme-terminal::before {
+        animation: none;
+    }
+    .terminal-cursor {
+        animation: none;
+        opacity: 1;
+    }
+}
+

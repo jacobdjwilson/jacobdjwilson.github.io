@@ -27,7 +27,7 @@ ul.timeline > li {
     width: 90%;
 }
 
-ul.timeline > li span {
+ul.timeline > li > span:not(.fa-li) {
     font-size: 0.5em;
     color: #888;
     min-height: 10em;

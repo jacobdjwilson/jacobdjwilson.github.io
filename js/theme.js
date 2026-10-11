@@ -27,6 +27,8 @@
         if (marquee) marquee.remove();
         var header8bit = document.getElementById("8bit-header");
         if (header8bit) header8bit.remove();
+        var termCursor = document.getElementById("terminal-cursor");
+        if (termCursor) termCursor.remove();
         
         if (window._win95ClockInterval) {
             clearInterval(window._win95ClockInterval);
@@ -49,6 +51,18 @@
         } else {
             document.body.insertBefore(wrap, document.body.firstChild);
         }
+    }
+
+    function addTerminalCursor() {
+        if (document.getElementById("terminal-cursor")) return;
+        var brand = document.querySelector("#mainNav .navbar-brand");
+        if (!brand) return;
+        var cur = document.createElement("span");
+        cur.id = "terminal-cursor";
+        cur.className = "terminal-cursor";
+        cur.setAttribute("aria-hidden", "true");
+        cur.innerHTML = "&nbsp;";
+        brand.appendChild(cur);
     }
 
     function addWin95Taskbar() {
@@ -543,7 +557,7 @@
     }
 
     function removeWin95Extras() {
-        ["win95-desktop-icons", "win95-start-menu", "win95-shutdown-screen"].forEach(function (id) {
+        ["win95-desktop-icons", "win95-start-menu", "win95-shutdown-screen", "win95-bsod-screen"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.remove();
         });
@@ -597,6 +611,7 @@
             }
             if (CURRENT_THEME === "geocities") addGeocitiesMarquee();
             if (CURRENT_THEME === "8bit") add8bitHeader();
+            if (CURRENT_THEME === "terminal") addTerminalCursor();
         }
 
         updateActiveMenuItem(CURRENT_THEME);
@@ -611,6 +626,23 @@
     }
 
     function handleDocumentClick(e) {
+        var navLink = e.target.closest('#navbarResponsive .nav-link:not(.dropdown-toggle)');
+        if (navLink) {
+            var navbarResponsive = document.getElementById("navbarResponsive");
+            if (navbarResponsive && navbarResponsive.classList.contains("show")) {
+                if (window.bootstrap && window.bootstrap.Collapse) {
+                    var bsCollapse = window.bootstrap.Collapse.getInstance(navbarResponsive);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    } else {
+                        navbarResponsive.classList.remove("show");
+                    }
+                } else {
+                    navbarResponsive.classList.remove("show");
+                }
+            }
+        }
+
         var themeOpt = e.target.closest(".theme-option");
         if (themeOpt) {
             e.preventDefault();
@@ -708,9 +740,16 @@
             closeDialog();
             closeStartMenu();
         }
+        if ((e.key === "Enter" || e.key === " ") && e.target && e.target.closest(".win95-start-btn")) {
+            e.preventDefault();
+            toggleStartMenu();
+        }
     }
 
     function init() {
+        try {
+            localStorage.removeItem("portfolio_theme");
+        } catch (e) {}
         document.addEventListener("click", handleDocumentClick);
         document.addEventListener("keydown", handleDocumentKeydown);
         applyTheme("default");

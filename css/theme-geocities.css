@@ -388,3 +388,108 @@ body.theme-geocities footer::after {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
 }
+
+/* ---------- Retro Cursor Sparkle ---------- */
+.geocities-sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+    animation: sparkle-fade 0.8s ease-out forwards;
+}
+
+@keyframes sparkle-fade {
+    0% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(0.2) translateY(24px) rotate(90deg); opacity: 0; }
+}
+
+/* ---------- InfoSec Webring Widget ---------- */
+.geocities-webring {
+    margin: 24px auto 12px auto;
+    padding: 12px 18px;
+    border: 3px ridge #ffff00;
+    background: #000033;
+    color: #00ffff;
+    text-align: center;
+    max-width: 600px;
+    font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 13px;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.4);
+}
+
+.geocities-webring a {
+    color: #ff00ff !important;
+    text-decoration: underline;
+    margin: 0 6px;
+    cursor: pointer;
+}
+
+.geocities-webring a:hover {
+    color: #ffff00 !important;
+}
+
+/* ---------- Guestbook Easter Egg Modal ---------- */
+.geocities-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 2050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.geocities-guestbook {
+    background: #ffffcc;
+    color: #000080;
+    border: 5px ridge #ff0000;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+    width: min(540px, 94vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 20px;
+    font-family: "Comic Sans MS", "Times New Roman", cursive;
+}
+
+.geocities-guestbook h3 {
+    color: #cc0000;
+    text-align: center;
+    text-shadow: 2px 2px #ffff00;
+    margin-bottom: 12px;
+}
+
+.geocities-guestbook textarea,
+.geocities-guestbook input {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 5px 8px;
+    font-family: inherit;
+    border: 2px inset #999;
+    box-sizing: border-box;
+}
+
+.geocities-guestbook-entries {
+    margin-top: 16px;
+    border-top: 2px dashed #cc0000;
+    padding-top: 12px;
+    font-size: 13px;
+}
+
+.geocities-guestbook-entry {
+    background: #fff;
+    border: 1px dotted #666;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .geocities-marquee {
+        animation: none;
+    }
+    .geocities-sparkle {
+        display: none !important;
+    }
+}

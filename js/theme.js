@@ -9,6 +9,69 @@
     var THEMES = ["win95", "geocities", "8bit", "terminal"]; 
     var CURRENT_THEME = "default";
     var _dialogYesCallback = null;
+    var _audioCtx = null;
+    var _soundMuted = false;
+    var _draggedWin = null;
+    var _dragOffset = { x: 0, y: 0 };
+    var _winZIndex = 1045;
+    var _lastSparkleTime = 0;
+    var _sparkleColors = ["#00ffff", "#ff00ff", "#ffff00", "#00ff00", "#ff0055", "#ffffff"];
+    var _sparkleGlyphs = ["✦", "★", "✧", "✨", "✯"];
+
+    function escapeHtml(str) {
+        var div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function getAudioContext() {
+        if (!_audioCtx) {
+            var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) _audioCtx = new AudioContextClass();
+        }
+        if (_audioCtx && _audioCtx.state === "suspended") {
+            _audioCtx.resume();
+        }
+        return _audioCtx;
+    }
+
+    function play8BitTone(freq, duration, type, startDelay, endFreq) {
+        if (_soundMuted) return;
+        try {
+            var ctx = getAudioContext();
+            if (!ctx) return;
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.type = type || "square";
+            var startTime = ctx.currentTime + (startDelay || 0);
+            osc.frequency.setValueAtTime(freq, startTime);
+            if (endFreq) {
+                osc.frequency.exponentialRampToValueAtTime(Math.max(10, endFreq), startTime + duration);
+            }
+            gain.gain.setValueAtTime(0.08, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        } catch (e) {}
+    }
+
+    function playCoinSound() {
+        play8BitTone(987, 0.08, "square", 0);
+        play8BitTone(1318, 0.32, "square", 0.08);
+    }
+
+    function playStompSound() {
+        play8BitTone(420, 0.22, "triangle", 0, 80);
+    }
+
+    function play1UpSound() {
+        var notes = [1318, 1568, 2637, 2093, 2349, 3136];
+        notes.forEach(function (freq, i) {
+            play8BitTone(freq, 0.12, "square", i * 0.09);
+        });
+    }
 
     var FONT_URLS = {
         "8bit": "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
@@ -30,10 +93,17 @@
         if (taskbar) taskbar.remove();
         var marquee = document.getElementById("geocities-marquee-wrap");
         if (marquee) marquee.remove();
+        var webring = document.getElementById("geocities-webring");
+        if (webring) webring.remove();
+        var guestbook = document.getElementById("geocities-guestbook-modal");
+        if (guestbook) guestbook.remove();
         var header8bit = document.getElementById("8bit-header");
         if (header8bit) header8bit.remove();
         var termCursor = document.getElementById("terminal-cursor");
         if (termCursor) termCursor.remove();
+        var termCli = document.getElementById("terminal-cli-wrap");
+        if (termCli) termCli.remove();
+        document.body.classList.remove("terminal-amber");
         
         if (window._win95ClockInterval) {
             clearInterval(window._win95ClockInterval);
@@ -50,12 +120,88 @@
         wrap.className = "geocities-marquee-wrap";
         wrap.innerHTML =
             '<span class="geocities-marquee">🚧 UNDER CONSTRUCTION - BEST VIEWED IN NETSCAPE NAVIGATOR AT 800x600 - ' +
-            'THANKS FOR VISITING MY HOMEPAGE! - SIGN MY GUESTBOOK! 🚧&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+            'THANKS FOR VISITING MY HOMEPAGE! - <a href="#" data-action="open-guestbook" style="color:#ffff00;text-decoration:underline;">SIGN MY GUESTBOOK!</a> 🚧&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         if (nav && nav.parentNode) {
             nav.parentNode.insertBefore(wrap, nav.nextSibling);
         } else {
             document.body.insertBefore(wrap, document.body.firstChild);
         }
+
+        var footer = document.querySelector("footer");
+        if (footer && !document.getElementById("geocities-webring")) {
+            var ring = document.createElement("div");
+            ring.id = "geocities-webring";
+            ring.className = "geocities-webring";
+            ring.innerHTML =
+                '<div>[ <a href="#experience">&laquo; Prev Site</a> ] &middot; ' +
+                '<b>🛡️ InfoSec Webring Hub #1337 🛡️</b> &middot; ' +
+                '[ <a href="#education">Next Site &raquo;</a> ] &middot; ' +
+                '[ <a href="#" data-action="open-guestbook">Sign Guestbook!</a> ]</div>' +
+                '<div style="font-size:11px;margin-top:4px;color:#ffff00;">Proud Member of the 1999 Cyber Defenders Webring!</div>';
+            footer.parentNode.insertBefore(ring, footer);
+        }
+    }
+
+    function handleGeoCitiesMouseMove(e) {
+        if (CURRENT_THEME !== "geocities") return;
+        var now = Date.now();
+        if (now - _lastSparkleTime < 50) return;
+        _lastSparkleTime = now;
+
+        var span = document.createElement("span");
+        span.className = "geocities-sparkle";
+        span.textContent = _sparkleGlyphs[Math.floor(Math.random() * _sparkleGlyphs.length)];
+        span.style.left = (e.clientX + Math.random() * 12 - 6) + "px";
+        span.style.top = (e.clientY + Math.random() * 12 - 6) + "px";
+        span.style.color = _sparkleColors[Math.floor(Math.random() * _sparkleColors.length)];
+        document.body.appendChild(span);
+        setTimeout(function () { span.remove(); }, 800);
+    }
+
+    function openGuestbookModal() {
+        if (document.getElementById("geocities-guestbook-modal")) return;
+        var overlay = document.createElement("div");
+        overlay.id = "geocities-guestbook-modal";
+        overlay.className = "geocities-modal-overlay";
+        overlay.innerHTML =
+            '<div class="geocities-guestbook">' +
+                '<h3>📖 Jake\'s Cyber Guestbook (1999) 📖</h3>' +
+                '<p style="text-align:center;font-size:12px;">Leave your mark on the cyberspace superhighway!</p>' +
+                '<form id="guestbook-form">' +
+                    '<input type="text" id="gb-name" placeholder="Your Hacker Handle / Name" required />' +
+                    '<textarea id="gb-msg" rows="2" placeholder="Your Message..." required></textarea>' +
+                    '<div style="display:flex;gap:8px;">' +
+                        '<button type="submit" style="background:#cc0000;color:#fff;font-weight:bold;padding:4px 12px;border:2px outset #fff;cursor:pointer;">Sign Guestbook!</button>' +
+                        '<button type="button" data-action="close-guestbook" style="background:#666;color:#fff;padding:4px 12px;border:2px outset #fff;cursor:pointer;">Close</button>' +
+                    '</div>' +
+                '</form>' +
+                '<div class="geocities-guestbook-entries" id="gb-entries">' +
+                    '<div class="geocities-guestbook-entry"><b>ZeroCool</b>: <i>"Hack the planet! Cool portfolio site."</i></div>' +
+                    '<div class="geocities-guestbook-entry"><b>NetscapeFan99</b>: <i>"Loaded in 14.4k modem without problems!"</i></div>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(overlay);
+
+        overlay.querySelector("#guestbook-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var nameInput = document.getElementById("gb-name");
+            var msgInput = document.getElementById("gb-msg");
+            var name = (nameInput.value || "Anonymous").trim();
+            var msg = (msgInput.value || "").trim();
+            if (!msg) return;
+            var entry = document.createElement("div");
+            entry.className = "geocities-guestbook-entry";
+            entry.innerHTML = '<b>' + escapeHtml(name) + '</b>: <i>"' + escapeHtml(msg) + '"</i>';
+            var list = document.getElementById("gb-entries");
+            if (list) list.insertBefore(entry, list.firstChild);
+            nameInput.value = "";
+            msgInput.value = "";
+        });
+    }
+
+    function closeGuestbookModal() {
+        var gb = document.getElementById("geocities-guestbook-modal");
+        if (gb) gb.remove();
     }
 
     function addTerminalCursor() {
@@ -68,6 +214,126 @@
         cur.setAttribute("aria-hidden", "true");
         cur.innerHTML = "&nbsp;";
         brand.appendChild(cur);
+    }
+
+    function addTerminalCli() {
+        if (document.getElementById("terminal-cli-wrap")) return;
+        var wrap = document.createElement("div");
+        wrap.id = "terminal-cli-wrap";
+        wrap.innerHTML =
+            '<div class="terminal-cli-history" id="terminal-cli-history">' +
+                '<div class="cmd-entry">SYS_INIT: Antigravity Shell v2.4 ready. Type <span style="text-decoration:underline;">help</span> for commands.</div>' +
+            '</div>' +
+            '<div class="terminal-cli-input-row">' +
+                '<span class="terminal-cli-prompt">&gt;</span>' +
+                '<input type="text" id="terminal-cli-input" placeholder="Type a command (help, whoami, exp, amber)..." autocomplete="off" spellcheck="false" />' +
+                '<button type="button" class="terminal-color-toggle-btn" id="terminal-color-toggle" title="Toggle Amber/Green CRT">Amber CRT</button>' +
+            '</div>';
+        document.body.appendChild(wrap);
+
+        var input = document.getElementById("terminal-cli-input");
+        var hist = document.getElementById("terminal-cli-history");
+        var colorBtn = document.getElementById("terminal-color-toggle");
+
+        colorBtn.addEventListener("click", function () {
+            var isAmber = document.body.classList.toggle("terminal-amber");
+            colorBtn.textContent = isAmber ? "Green CRT" : "Amber CRT";
+        });
+
+        input.addEventListener("keydown", function (e) {
+            if (e.key !== "Enter") return;
+            var val = input.value.trim();
+            if (!val) return;
+            input.value = "";
+            handleTerminalCommand(val, hist);
+        });
+    }
+
+    function handleTerminalCommand(cmdStr, histEl) {
+        var args = cmdStr.toLowerCase().split(/\s+/);
+        var cmd = args[0];
+        var out = "";
+
+        switch (cmd) {
+            case "help":
+                out = "Available commands:\n" +
+                      "  whoami       - Display executive bio\n" +
+                      "  exp / work   - Jump to professional experience\n" +
+                      "  edu          - Jump to education\n" +
+                      "  awards       - Jump to awards & achievements\n" +
+                      "  media        - Jump to media coverage\n" +
+                      "  amber        - Switch to Amber CRT phosphor\n" +
+                      "  green        - Switch to Green CRT phosphor\n" +
+                      "  theme <name> - Switch theme (default, win95, geocities, 8bit)\n" +
+                      "  date         - Print current timestamp\n" +
+                      "  clear        - Clear terminal history";
+                break;
+            case "whoami":
+                out = "Jacob DJ Wilson: Manager, Offensive Product Cybersecurity & PSOC at General Motors. 19 yrs IT, 15 yrs Security.";
+                break;
+            case "exp":
+            case "work":
+            case "experience":
+                out = "Navigating to experience...";
+                var expEl = document.querySelector("#experience");
+                if (expEl) expEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                break;
+            case "edu":
+            case "education":
+                out = "Navigating to education...";
+                var eduEl = document.querySelector("#education");
+                if (eduEl) eduEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                break;
+            case "awards":
+                out = "Navigating to awards...";
+                var awEl = document.querySelector("#awards");
+                if (awEl) awEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                break;
+            case "media":
+                out = "Navigating to media...";
+                var medEl = document.querySelector("#media");
+                if (medEl) medEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                break;
+            case "amber":
+                document.body.classList.add("terminal-amber");
+                var btnA = document.getElementById("terminal-color-toggle");
+                if (btnA) btnA.textContent = "Green CRT";
+                out = "Phosphor mode set to AMBER (P3 phosphor).";
+                break;
+            case "green":
+                document.body.classList.remove("terminal-amber");
+                var btnG = document.getElementById("terminal-color-toggle");
+                if (btnG) btnG.textContent = "Amber CRT";
+                out = "Phosphor mode set to GREEN (P1 phosphor).";
+                break;
+            case "theme":
+                var targetTheme = args[1];
+                if (THEMES.indexOf(targetTheme) !== -1 || targetTheme === "default") {
+                    applyTheme(targetTheme);
+                    return;
+                } else {
+                    out = "Usage: theme <default|win95|geocities|8bit|terminal>";
+                }
+                break;
+            case "date":
+                out = new Date().toString();
+                break;
+            case "clear":
+                histEl.innerHTML = "";
+                return;
+            default:
+                out = "bash: " + cmd + ": command not found. Type 'help' for available commands.";
+        }
+
+        var entry = document.createElement("div");
+        entry.className = "cmd-entry";
+        entry.textContent = "> " + cmdStr;
+        var outputDiv = document.createElement("div");
+        outputDiv.className = "cmd-output";
+        outputDiv.textContent = out;
+        histEl.appendChild(entry);
+        histEl.appendChild(outputDiv);
+        histEl.scrollTop = histEl.scrollHeight;
     }
 
     function addWin95Taskbar() {
@@ -115,7 +381,8 @@
             '<div><span>Player 1</span><span id="8bit-score">000000</span></div>' +
             '<div><span class="bit-coin-icon"></span><span id="8bit-coins">x00</span></div>' +
             '<div><span>WORLD</span><span>1-1</span></div>' +
-            '<div><span>TIME</span><span id="8bit-time">400</span></div>';
+            '<div><span>TIME</span><span id="8bit-time">400</span></div>' +
+            '<div><button type="button" class="bit-sound-btn" id="bit-sound-toggle" aria-label="Toggle Sound" title="Sound FX">' + (_soundMuted ? "🔇" : "🔊") + '</button></div>';
 
         document.body.insertBefore(header, document.body.firstChild);
 
@@ -137,6 +404,7 @@
             if (window._8bitCoins >= 100) {
                 window._8bitCoins = 0;
                 window.update8bitScore(1000);
+                play1UpSound();
                 showFloatText("1-UP!", window.innerWidth/2, window.innerHeight/2, "#00e756");
             }
             if (coinsEl) coinsEl.textContent = "x" + String(window._8bitCoins).padStart(2, "0");
@@ -167,6 +435,23 @@
         var pos = 0;
         var speed = 3;
         var dir = 1;
+        var isStomped = false;
+
+        shell.addEventListener("click", function () {
+            if (isStomped || CURRENT_THEME !== "8bit") return;
+            isStomped = true;
+            shell.classList.add("stomped");
+            speed = 15;
+            playStompSound();
+            var rect = shell.getBoundingClientRect();
+            showFloatText("+500", rect.left + 16, rect.top, "#ffd700");
+            if (window.update8bitScore) window.update8bitScore(500);
+            setTimeout(function () {
+                isStomped = false;
+                shell.classList.remove("stomped");
+                speed = 3;
+            }, 3500);
+        });
 
         function animateShell() {
             if (CURRENT_THEME !== "8bit") {
@@ -213,6 +498,7 @@
                 if(coin) coin.remove();
             }, 600);
 
+            playCoinSound();
             if(window.update8bitScore) window.update8bitScore(100);
             if(window.update8bitCoins) window.update8bitCoins(1);
         }
@@ -301,6 +587,30 @@
         if (task) task.remove();
     }
 
+    function bringToFront(win) {
+        if (!win) return;
+        _winZIndex += 1;
+        win.style.zIndex = _winZIndex;
+    }
+
+    function toggleMaximizeWindow(win) {
+        if (!win) return;
+        bringToFront(win);
+        win.classList.toggle("maximized");
+        var icon = win.querySelector('[data-action="maximize-window"] i');
+        if (icon) {
+            icon.className = win.classList.contains("maximized") ? "fa-regular fa-window-restore" : "fa-regular fa-square";
+        }
+    }
+
+    function minimizeWin95Window(win) {
+        if (!win) return;
+        var id = win.id.replace("win95-window-", "");
+        win.style.display = "none";
+        var task = document.getElementById("win95-taskbar-task-" + id);
+        if (task) task.classList.remove("active-window");
+    }
+
     function toggleMinimizeWindow(id) {
         var win = document.getElementById("win95-window-" + id);
         var task = document.getElementById("win95-taskbar-task-" + id);
@@ -308,6 +618,7 @@
         var minimized = win.style.display === "none";
         win.style.display = minimized ? "flex" : "none";
         task.classList.toggle("active-window", minimized);
+        if (minimized) bringToFront(win);
     }
 
     function closeWin95Window(win) {
@@ -317,18 +628,66 @@
         removeTaskbarTask(id);
     }
 
+    function handleTitlebarPointerDown(e) {
+        var titlebar = e.target.closest(".win95-window-titlebar");
+        if (!titlebar || e.target.closest(".win95-window-controls")) return;
+        var win = titlebar.closest(".win95-window");
+        if (!win || win.classList.contains("maximized")) return;
+
+        bringToFront(win);
+        var rect = win.getBoundingClientRect();
+        win.style.transform = "none";
+        win.style.left = rect.left + "px";
+        win.style.top = rect.top + "px";
+
+        var clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0].clientX);
+        var clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0].clientY);
+        _dragOffset.x = clientX - rect.left;
+        _dragOffset.y = clientY - rect.top;
+        _draggedWin = win;
+    }
+
+    function handlePointerMove(e) {
+        if (!_draggedWin) return;
+        var clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0].clientX);
+        var clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0].clientY);
+        if (clientX === undefined || clientY === undefined) return;
+        var x = clientX - _dragOffset.x;
+        var y = clientY - _dragOffset.y;
+        x = Math.max(0, Math.min(window.innerWidth - 60, x));
+        y = Math.max(0, Math.min(window.innerHeight - 60, y));
+        _draggedWin.style.left = x + "px";
+        _draggedWin.style.top = y + "px";
+    }
+
+    function handlePointerUp() {
+        _draggedWin = null;
+    }
+
     function openWindow(opts) {
         var winId = "win95-window-" + opts.id;
-        if (document.getElementById(winId)) return;
+        var existing = document.getElementById(winId);
+        if (existing) {
+            if (existing.style.display === "none") {
+                existing.style.display = "flex";
+                var taskEl = document.getElementById("win95-taskbar-task-" + opts.id);
+                if (taskEl) taskEl.classList.add("active-window");
+            }
+            bringToFront(existing);
+            return;
+        }
 
         var win = document.createElement("div");
         win.className = "win95-window";
         win.id = winId;
+        bringToFront(win);
         win.innerHTML =
             '<div class="win95-window-titlebar">' +
                 '<span class="win95-window-icon ' + opts.icon + '" aria-hidden="true"></span>' +
                 '<span class="win95-window-title">' + opts.title + '</span>' +
                 '<span class="win95-window-controls">' +
+                    '<button type="button" class="win95-window-btn" data-action="minimize-window" aria-label="Minimize"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>' +
+                    '<button type="button" class="win95-window-btn" data-action="maximize-window" aria-label="Maximize"><i class="fa-regular fa-square" aria-hidden="true"></i></button>' +
                     '<button type="button" class="win95-window-btn" data-action="close-window" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
                 '</span>' +
             '</div>' +
@@ -340,7 +699,19 @@
         document.body.appendChild(win);
         addTaskbarTask(opts.id, opts.title, opts.icon);
 
+        win.addEventListener("mousedown", function () {
+            bringToFront(win);
+        });
+        win.addEventListener("touchstart", function () {
+            bringToFront(win);
+        }, { passive: true });
+
         win.addEventListener("dblclick", function (e) {
+            var titlebar = e.target.closest(".win95-window-titlebar");
+            if (titlebar && !e.target.closest(".win95-window-controls")) {
+                toggleMaximizeWindow(win);
+                return;
+            }
             var row = e.target.closest(".win95-file-row[data-scroll]");
             if (!row) return;
             var target = document.querySelector(row.getAttribute("data-scroll"));
@@ -616,7 +987,10 @@
             }
             if (CURRENT_THEME === "geocities") addGeocitiesMarquee();
             if (CURRENT_THEME === "8bit") add8bitHeader();
-            if (CURRENT_THEME === "terminal") addTerminalCursor();
+            if (CURRENT_THEME === "terminal") {
+                addTerminalCursor();
+                addTerminalCli();
+            }
         }
 
         updateActiveMenuItem(CURRENT_THEME);
@@ -700,6 +1074,39 @@
             return;
         }
 
+        var minWinBtn = e.target.closest('[data-action="minimize-window"]');
+        if (minWinBtn) {
+            minimizeWin95Window(minWinBtn.closest(".win95-window"));
+            return;
+        }
+
+        var maxWinBtn = e.target.closest('[data-action="maximize-window"]');
+        if (maxWinBtn) {
+            toggleMaximizeWindow(maxWinBtn.closest(".win95-window"));
+            return;
+        }
+
+        var openGuestbookBtn = e.target.closest('[data-action="open-guestbook"]');
+        if (openGuestbookBtn) {
+            e.preventDefault();
+            openGuestbookModal();
+            return;
+        }
+
+        var closeGuestbookBtn = e.target.closest('[data-action="close-guestbook"]');
+        if (closeGuestbookBtn) {
+            closeGuestbookModal();
+            return;
+        }
+
+        var soundToggle = e.target.closest("#bit-sound-toggle");
+        if (soundToggle) {
+            e.preventDefault();
+            _soundMuted = !_soundMuted;
+            soundToggle.textContent = _soundMuted ? "🔇" : "🔊";
+            return;
+        }
+
         var closeWinBtn = e.target.closest('[data-action="close-window"]');
         if (closeWinBtn) {
             closeWin95Window(closeWinBtn.closest(".win95-window"));
@@ -744,10 +1151,26 @@
         if (e.key === "Escape") {
             closeDialog();
             closeStartMenu();
+            closeGuestbookModal();
         }
         if ((e.key === "Enter" || e.key === " ") && e.target && e.target.closest(".win95-start-btn")) {
             e.preventDefault();
             toggleStartMenu();
+        }
+
+        var menu = document.getElementById("win95-start-menu");
+        if (menu && menu.classList.contains("visible")) {
+            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                e.preventDefault();
+                var items = Array.from(menu.querySelectorAll(".win95-start-item"));
+                var activeIdx = items.indexOf(document.activeElement);
+                if (e.key === "ArrowDown") {
+                    activeIdx = (activeIdx + 1) % items.length;
+                } else {
+                    activeIdx = (activeIdx - 1 + items.length) % items.length;
+                }
+                if (items[activeIdx]) items[activeIdx].focus();
+            }
         }
     }
 
@@ -757,6 +1180,13 @@
         } catch (e) {}
         document.addEventListener("click", handleDocumentClick);
         document.addEventListener("keydown", handleDocumentKeydown);
+        document.addEventListener("mousedown", handleTitlebarPointerDown);
+        document.addEventListener("mousemove", handlePointerMove);
+        document.addEventListener("mouseup", handlePointerUp);
+        document.addEventListener("mousemove", handleGeoCitiesMouseMove);
+        document.addEventListener("touchstart", handleTitlebarPointerDown, { passive: true });
+        document.addEventListener("touchmove", handlePointerMove, { passive: true });
+        document.addEventListener("touchend", handlePointerUp);
         applyTheme("default");
     }
 

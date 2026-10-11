@@ -104,6 +104,7 @@
         var termCli = document.getElementById("terminal-cli-wrap");
         if (termCli) termCli.remove();
         document.body.classList.remove("terminal-amber");
+        stopMatrixRain();
         
         if (window._win95ClockInterval) {
             clearInterval(window._win95ClockInterval);
@@ -216,6 +217,60 @@
         brand.appendChild(cur);
     }
 
+    var _matrixAnimId = null;
+
+    function toggleMatrixRain() {
+        var existing = document.getElementById("terminal-matrix-canvas");
+        if (existing) {
+            if (_matrixAnimId) cancelAnimationFrame(_matrixAnimId);
+            _matrixAnimId = null;
+            existing.remove();
+            return "[-] Matrix digital rain deactivated.";
+        }
+        var canvas = document.createElement("canvas");
+        canvas.id = "terminal-matrix-canvas";
+        document.body.appendChild(canvas);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var ctx = canvas.getContext("2d");
+        var chars = "ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ0123456789ABCDEF<>/*+-~#";
+        var fontSize = 14;
+        var columns = Math.floor(canvas.width / fontSize);
+        var drops = [];
+        for (var i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * -50);
+        }
+
+        function draw() {
+            var isAmber = document.body.classList.contains("terminal-amber");
+            var color = isAmber ? "#ffb000" : "#33ff33";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = color;
+            ctx.font = fontSize + "px monospace";
+            for (var j = 0; j < drops.length; j++) {
+                var text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, j * fontSize, drops[j] * fontSize);
+                if (drops[j] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[j] = 0;
+                }
+                drops[j]++;
+            }
+            _matrixAnimId = requestAnimationFrame(draw);
+        }
+        draw();
+        return "[+] Matrix digital rain initiated. Press ESC or type 'matrix' to exit.";
+    }
+
+    function stopMatrixRain() {
+        var existing = document.getElementById("terminal-matrix-canvas");
+        if (existing) {
+            if (_matrixAnimId) cancelAnimationFrame(_matrixAnimId);
+            _matrixAnimId = null;
+            existing.remove();
+        }
+    }
+
     function addTerminalCli() {
         if (document.getElementById("terminal-cli-wrap")) return;
         var wrap = document.createElement("div");
@@ -226,7 +281,7 @@
             '</div>' +
             '<div class="terminal-cli-input-row">' +
                 '<span class="terminal-cli-prompt">&gt;</span>' +
-                '<input type="text" id="terminal-cli-input" placeholder="Type a command (help, whoami, exp, amber)..." autocomplete="off" spellcheck="false" />' +
+                '<input type="text" id="terminal-cli-input" placeholder="Type a command (help, whoami, neofetch, matrix, nmap)..." autocomplete="off" spellcheck="false" />' +
                 '<button type="button" class="terminal-color-toggle-btn" id="terminal-color-toggle" title="Toggle Amber/Green CRT">Amber CRT</button>' +
             '</div>';
         document.body.appendChild(wrap);
@@ -234,6 +289,8 @@
         var input = document.getElementById("terminal-cli-input");
         var hist = document.getElementById("terminal-cli-history");
         var colorBtn = document.getElementById("terminal-color-toggle");
+        var cliHistory = [];
+        var cliHistoryIdx = -1;
 
         colorBtn.addEventListener("click", function () {
             var isAmber = document.body.classList.toggle("terminal-amber");
@@ -241,35 +298,78 @@
         });
 
         input.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowUp") {
+                if (cliHistory.length === 0) return;
+                e.preventDefault();
+                if (cliHistoryIdx === -1) {
+                    cliHistoryIdx = cliHistory.length - 1;
+                } else if (cliHistoryIdx > 0) {
+                    cliHistoryIdx--;
+                }
+                input.value = cliHistory[cliHistoryIdx];
+                return;
+            }
+            if (e.key === "ArrowDown") {
+                if (cliHistory.length === 0) return;
+                e.preventDefault();
+                if (cliHistoryIdx !== -1 && cliHistoryIdx < cliHistory.length - 1) {
+                    cliHistoryIdx++;
+                    input.value = cliHistory[cliHistoryIdx];
+                } else {
+                    cliHistoryIdx = -1;
+                    input.value = "";
+                }
+                return;
+            }
             if (e.key !== "Enter") return;
             var val = input.value.trim();
             if (!val) return;
+            cliHistory.push(val);
+            cliHistoryIdx = -1;
             input.value = "";
-            handleTerminalCommand(val, hist);
+            handleTerminalCommand(val, hist, cliHistory);
         });
     }
 
-    function handleTerminalCommand(cmdStr, histEl) {
-        var args = cmdStr.toLowerCase().split(/\s+/);
-        var cmd = args[0];
+    function handleTerminalCommand(cmdStr, histEl, historyArr) {
+        var trimmed = cmdStr.trim();
+        var firstSpace = trimmed.indexOf(" ");
+        var cmd = (firstSpace === -1 ? trimmed : trimmed.substring(0, firstSpace)).toLowerCase();
+        var rest = firstSpace === -1 ? "" : trimmed.substring(firstSpace + 1).trim();
+        var args = rest ? rest.split(/\s+/) : [];
         var out = "";
 
         switch (cmd) {
             case "help":
+            case "?":
                 out = "Available commands:\n" +
-                      "  whoami       - Display executive bio\n" +
-                      "  exp / work   - Jump to professional experience\n" +
-                      "  edu          - Jump to education\n" +
-                      "  awards       - Jump to awards & achievements\n" +
-                      "  media        - Jump to media coverage\n" +
-                      "  amber        - Switch to Amber CRT phosphor\n" +
-                      "  green        - Switch to Green CRT phosphor\n" +
-                      "  theme <name> - Switch theme (default, win95, geocities, 8bit)\n" +
-                      "  date         - Print current timestamp\n" +
-                      "  clear        - Clear terminal history";
+                      "  whoami          - Display executive bio & title\n" +
+                      "  exp / work      - Jump to professional experience\n" +
+                      "  edu             - Jump to education\n" +
+                      "  awards          - Jump to awards & achievements\n" +
+                      "  media           - Jump to media coverage\n" +
+                      "  amber / green   - Switch CRT phosphor color\n" +
+                      "  theme <name>    - Switch theme (default, win95, geocities, 8bit)\n" +
+                      "  date            - Print current timestamp\n" +
+                      "  history         - Display command history\n" +
+                      "  clear           - Clear terminal history\n\n" +
+                      "Hacker & Easter Egg commands:\n" +
+                      "  neofetch        - System & cyber profile banner\n" +
+                      "  matrix          - Toggle full-screen Matrix digital rain\n" +
+                      "  nmap / scan     - Port scan & defense verification\n" +
+                      "  ls / dir        - List confidential system files\n" +
+                      "  cat <file>      - Read file contents (e.g., flag.txt, skills.sh)\n" +
+                      "  skills          - Offensive security toolkit\n" +
+                      "  cowsay <msg>    - Talking ASCII hacker cow\n" +
+                      "  fortune         - Cybersecurity & hacker wisdom\n" +
+                      "  sudo <cmd>      - Privilege escalation attempt\n" +
+                      "  flag / ctf      - Check hidden CTF challenge flag\n" +
+                      "  wargames        - Global Thermonuclear War simulation\n" +
+                      "  ping <host>     - Ping network target\n" +
+                      "  rot13 / base64  - Cryptographic utilities";
                 break;
             case "whoami":
-                out = "Jacob DJ Wilson: Manager, Offensive Product Cybersecurity & PSOC at General Motors. 19 yrs IT, 15 yrs Security.";
+                out = "Jacob DJ Wilson: Manager, Offensive Product Cybersecurity & PSOC. 19 yrs IT, 15 yrs Security.";
                 break;
             case "exp":
             case "work":
@@ -307,7 +407,7 @@
                 out = "Phosphor mode set to GREEN (P1 phosphor).";
                 break;
             case "theme":
-                var targetTheme = args[1];
+                var targetTheme = (args[0] || "").toLowerCase();
                 if (THEMES.indexOf(targetTheme) !== -1 || targetTheme === "default") {
                     applyTheme(targetTheme);
                     return;
@@ -321,6 +421,186 @@
             case "clear":
                 histEl.innerHTML = "";
                 return;
+            case "history":
+                if (!historyArr || historyArr.length === 0) {
+                    out = "No command history.";
+                } else {
+                    out = historyArr.map(function (c, idx) { return "  " + (idx + 1) + "  " + c; }).join("\n");
+                }
+                break;
+            case "neofetch":
+            case "banner":
+            case "uname":
+            case "sysinfo":
+                out = "       _  ____  __      __\n" +
+                      "      | |/ __ \\ \\ \\    / /\n" +
+                      "   _  | | |  | | \\ \\  / / \n" +
+                      "  | |_| | |__| |  \\ \\/ /  \n" +
+                      "   \\___/ \\____/    \\__/   \n" +
+                      "------------------------------------------\n" +
+                      "User:         guest@cyber-terminal\n" +
+                      "Host:         Jacob Wilson's Portfolio v1.7\n" +
+                      "OS:           CyberOS x86_64 (Hardened Linux)\n" +
+                      "Kernel:       6.12.0-offensive-sec\n" +
+                      "Uptime:       19 years IT / 15 years Security\n" +
+                      "Role:         Manager, Offensive Product Cyber & PSOC\n" +
+                      "Focus:        Vehicle Cyber, Red Teaming, Threat Intel\n" +
+                      "Terminal:     agy-shell (CRT Green / Amber)\n" +
+                      "Philosophy:   \"Offense informs defense; defense sharpens offense.\"";
+                break;
+            case "matrix":
+                out = toggleMatrixRain();
+                break;
+            case "ls":
+            case "dir":
+                out = "total 48\n" +
+                      "drwxr-xr-x 2 jacob sec-ops 4096 Oct 11 2026 .\n" +
+                      "drwxr-xr-x 4 root  root    4096 Oct 11 2026 ..\n" +
+                      "-rw-r--r-- 1 jacob sec-ops  512 Oct 11 2026 flag.txt\n" +
+                      "-rwxr-xr-x 1 jacob sec-ops 1337 Oct 11 2026 skills.sh\n" +
+                      "-rw-r--r-- 1 jacob sec-ops 1024 Oct 11 2026 bio.md\n" +
+                      "-rw-r--r-- 1 jacob sec-ops 2048 Oct 11 2026 certs.txt\n" +
+                      "-r-------- 1 root  root     256 Oct 11 2026 /etc/shadow";
+                break;
+            case "cat":
+                var file = (args[0] || "").toLowerCase();
+                if (!file) {
+                    out = "Usage: cat <filename> (type 'ls' to view files)";
+                } else if (file === "flag.txt" || file === "flag") {
+                    out = "FLAG{1337_0ff3ns1v3_cyb3rs3cur1ty_fl4g}\n[+] CTF Challenge Solved! Welcome to the elite tier.";
+                } else if (file === "skills.sh" || file === "skills") {
+                    out = "#!/bin/bash\n# Jacob DJ Wilson Offensive Cyber Arsenal\nTOOLS=(\"Burp Suite Pro\" \"Metasploit\" \"Wireshark\" \"Ghidra\" \"CAN-utils\" \"Frida\" \"Cobalt Strike\" \"Nmap\" \"IDA Pro\")\nDOMAINS=(\"Automotive & ECU Cyber\" \"Red Teaming\" \"PSOC Operations\" \"Vulnerability Research\")\necho \"[+] Offensive Toolset & Competencies Loaded.\"";
+                } else if (file === "bio.md" || file === "bio") {
+                    out = "# Jacob DJ Wilson\nManager, Offensive Product Cybersecurity & PSOC.\n19 years in IT, 15 years in Cybersecurity.\nSpecializing in product cybersecurity, red teaming, and threat operations.";
+                } else if (file === "certs.txt" || file === "certs") {
+                    out = "[+] Verified Professional Competencies:\n- Product Cybersecurity Leadership\n- PSOC Incident Management & Response\n- Red Teaming & Offensive Operations";
+                } else if (file === "/etc/shadow" || file === "shadow" || file === "/etc/passwd" || file === "passwd") {
+                    out = "cat: " + file + ": Permission denied (PSOC root authorization required)";
+                } else {
+                    out = "cat: " + file + ": No such file or directory. Try 'ls' for available files.";
+                }
+                break;
+            case "skills":
+            case "tools":
+            case "arsenal":
+                out = "[+] Jacob DJ Wilson's Offensive Security Toolkit:\n" +
+                      "    - Vehicle / Embedded Cyber: CAN bus, ECU security, Automotive Ethernet, UDS\n" +
+                      "    - Red Teaming & Pen Testing: Burp Suite Pro, Metasploit, Cobalt Strike\n" +
+                      "    - Reverse Engineering: Ghidra, IDA Pro, radare2, Frida\n" +
+                      "    - Operations: PSOC Management, Threat Modeling, Incident Response";
+                break;
+            case "flag":
+            case "ctf":
+                out = "FLAG{1337_0ff3ns1v3_cyb3rs3cur1ty_fl4g}\n[+] CTF Challenge Solved! Welcome to the elite tier.";
+                break;
+            case "sudo":
+                if (!rest) {
+                    out = "usage: sudo -u user command\nusage: sudo [-k]";
+                } else if (rest.toLowerCase().indexOf("rm") !== -1 && rest.indexOf("/") !== -1) {
+                    out = "rm: cannot remove root directory: Protected by PSOC endpoint defenses.";
+                } else {
+                    out = "[sudo] password for guest:\nguest is not in the sudoers file. This incident will be reported to Santa Claus.";
+                }
+                break;
+            case "nmap":
+            case "scan":
+                out = "Starting Nmap 7.94 ( https://nmap.org ) at 2026-10-11\n" +
+                      "Nmap scan report for jacobwilson.security (127.0.0.1)\n" +
+                      "Host is up (0.00018s latency).\n" +
+                      "PORT     STATE SERVICE       VERSION\n" +
+                      "22/tcp   open  ssh           OpenSSH 9.8 (hardened)\n" +
+                      "80/tcp   open  http          Nginx (portfolio v1.7)\n" +
+                      "443/tcp  open  ssl/https     TLSv1.3 ECDHE-RSA-AES256-GCM\n" +
+                      "1337/tcp open  elite         Offensive Security & PSOC Operations\n" +
+                      "MAC Address: 00:1A:2B:3C:4D:5E (Private Network Device)\n" +
+                      "Device type: Hardened Cyber Range & Security Lab\n" +
+                      "Nmap done: 1 IP address (1 host up) scanned in 0.42 seconds.";
+                break;
+            case "cowsay":
+                var msg = rest || "Happy hacking! May your exploits pop.";
+                var border = "-".repeat(msg.length + 2);
+                out = " " + "_".repeat(msg.length + 2) + "\n" +
+                      "< " + msg + " >\n" +
+                      " " + border + "\n" +
+                      "        \\   ^__^\n" +
+                      "         \\  (oo)\\_______\n" +
+                      "            (__)\\       )\\/\\\n" +
+                      "                ||----w |\n" +
+                      "                ||     ||";
+                break;
+            case "wargames":
+            case "war_games":
+                out = "GREETINGS PROFESSOR FALKEN.\n\n" +
+                      "SHALL WE PLAY A GAME?\n" +
+                      "1. CHESS\n" +
+                      "2. GLOBAL THERMONUCLEAR WAR\n\n" +
+                      "[>] A strange game. The only winning move is not to play.\n" +
+                      "How about a nice game of chess?";
+                break;
+            case "fortune":
+            case "quote":
+                var quotes = [
+                    "\"There are only two types of companies: those that have been hacked, and those that will be.\" — Robert Mueller",
+                    "\"If you think technology can solve your security problems, then you don't understand the problems and you don't understand the technology.\" — Bruce Schneier",
+                    "\"Offense informs defense; defense sharpens offense.\" — Cyber Operations Tenet",
+                    "\"The only truly secure system is one that is powered off, cast in concrete, and sealed in lead.\" — Gene Spafford",
+                    "\"Hackers are the immune system of the internet.\" — Keren Elazari",
+                    "\"Security isn't something you buy; it's something you do.\" — Marcus Ranum"
+                ];
+                out = quotes[Math.floor(Math.random() * quotes.length)];
+                break;
+            case "hack":
+            case "exploit":
+                out = "[!] ACCESS DENIED: Connection intercepted by Offensive Security & PSOC monitoring.\n" +
+                      "[!] Countermeasures deployed. Incident ID #SEC-1337 logged.";
+                break;
+            case "ping":
+                var target = args[0] || "127.0.0.1";
+                out = "PING " + target + " (56 data bytes)\n" +
+                      "64 bytes from " + target + ": icmp_seq=0 ttl=64 time=0.038 ms\n" +
+                      "64 bytes from " + target + ": icmp_seq=1 ttl=64 time=0.041 ms\n" +
+                      "--- " + target + " ping statistics ---\n" +
+                      "2 packets transmitted, 2 received, 0% packet loss";
+                break;
+            case "rot13":
+                if (!rest) {
+                    out = "Usage: rot13 <message>";
+                } else {
+                    out = rest.replace(/[a-zA-Z]/g, function (c) {
+                        return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+                    });
+                }
+                break;
+            case "base64":
+            case "b64":
+                if (!rest) {
+                    out = "Usage: base64 <text to encode or decode>";
+                } else {
+                    try {
+                        if (/^[A-Za-z0-9+/=]+$/.test(rest) && rest.length % 4 === 0) {
+                            out = "[Decoded]: " + atob(rest);
+                        } else {
+                            out = "[Encoded]: " + btoa(rest);
+                        }
+                    } catch (e) {
+                        out = "[Encoded]: " + btoa(rest);
+                    }
+                }
+                break;
+            case "1337":
+            case "leet":
+                out = "4LL Y0UR B453 4R3 B3L0N6 T0 U5. H4CK TH3 PL4N3T!";
+                break;
+            case "sl":
+                out = "      ====        ________                ___________\n" +
+                      "  _D _|  |_______/        \\__I_I_____===__|_________|\n" +
+                      "   |(_)---  |   H\\________/ _____ |   | |   |       |\n" +
+                      "   /     |  |   H  |  |     |   | |   | |   |       |\n" +
+                      "  |      |  |   H  |__--------------------|_______|\n" +
+                      "  | ________|___H__/__|_____/[][]~\\_______|      |\n" +
+                      "  |/ |   |_____I_____I_____I_____I_____I__|______|\n" +
+                      "Chugga chugga choo choo! (Did you mean 'ls'?)";
+                break;
             default:
                 out = "bash: " + cmd + ": command not found. Type 'help' for available commands.";
         }
@@ -820,6 +1100,44 @@
             '</div>';
         document.body.appendChild(menu);
         updateStartMenuActiveTheme();
+
+        var flyoutParent = menu.querySelector(".win95-flyout-parent");
+        if (flyoutParent) {
+            var flyout = flyoutParent.querySelector(".win95-flyout");
+            flyoutParent.addEventListener("mouseenter", function () {
+                if (flyout) positionWin95Flyout(flyout);
+            });
+        }
+        menu.addEventListener("mouseover", function (e) {
+            var item = e.target.closest(".win95-start-item");
+            if (item && !item.classList.contains("win95-flyout-parent") && !item.closest(".win95-flyout")) {
+                closeAllFlyouts();
+            }
+        });
+    }
+
+    function positionWin95Flyout(flyout) {
+        if (!flyout) return;
+        flyout.style.top = "auto";
+        flyout.style.bottom = "-3px";
+        var rect = flyout.getBoundingClientRect();
+        if (rect.top < 6) {
+            flyout.style.top = "4px";
+            flyout.style.bottom = "auto";
+        }
+        rect = flyout.getBoundingClientRect();
+        if (rect.bottom > window.innerHeight - 34) {
+            var overflow = rect.bottom - (window.innerHeight - 34);
+            flyout.style.bottom = (-3 + overflow) + "px";
+            flyout.style.top = "auto";
+        }
+        if (rect.right > window.innerWidth) {
+            flyout.style.left = "auto";
+            flyout.style.right = "100%";
+        } else {
+            flyout.style.left = "100%";
+            flyout.style.right = "auto";
+        }
     }
 
     function updateStartMenuActiveTheme() {
@@ -1053,7 +1371,12 @@
         if (flyoutParent) {
             e.preventDefault();
             e.stopPropagation();
-            flyoutParent.classList.toggle("open");
+            var willOpen = !flyoutParent.classList.contains("open");
+            flyoutParent.classList.toggle("open", willOpen);
+            if (willOpen) {
+                var flyout = flyoutParent.querySelector(".win95-flyout");
+                if (flyout) positionWin95Flyout(flyout);
+            }
             return;
         }
 
@@ -1149,6 +1472,7 @@
 
     function handleDocumentKeydown(e) {
         if (e.key === "Escape") {
+            stopMatrixRain();
             closeDialog();
             closeStartMenu();
             closeGuestbookModal();

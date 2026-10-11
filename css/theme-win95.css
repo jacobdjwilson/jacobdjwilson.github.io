@@ -353,7 +353,19 @@ body.theme-win95 footer a {
     font-family: Tahoma, "MS Sans Serif", sans-serif;
 }
 
+.win95-window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100vw !important;
+    height: calc(100vh - 28px) !important;
+    max-height: calc(100vh - 28px) !important;
+}
+
 .win95-window-titlebar {
+    cursor: move;
+    user-select: none;
+    -webkit-user-select: none;
     background: linear-gradient(90deg, #000080, #1084d0);
     color: #fff;
     display: flex;

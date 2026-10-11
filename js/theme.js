@@ -1,3 +1,8 @@
+/*!
+* Jacob's Portfolio v1.7 - A GitHub Pages Project
+* Last Modified October 2026 | This Source Code is Free for re-use
+* Licensed under MIT (https://github.com/jacobdjwilson/jacobdjwilson.github.io/blob/main/LICENSE)
+*/
 (function () {
     "use strict";
 

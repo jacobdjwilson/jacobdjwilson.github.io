@@ -132,32 +132,6 @@
         document.head.appendChild(link);
     }
 
-    function clearDecorations() {
-        var taskbar = document.getElementById("win95-taskbar");
-        if (taskbar) taskbar.remove();
-        var marquee = document.getElementById("geocities-marquee-wrap");
-        if (marquee) marquee.remove();
-        var webring = document.getElementById("geocities-webring");
-        if (webring) webring.remove();
-        var guestbook = document.getElementById("geocities-guestbook-modal");
-        if (guestbook) guestbook.remove();
-        var header8bit = document.getElementById("8bit-header");
-        if (header8bit) header8bit.remove();
-        var termCursor = document.getElementById("terminal-cursor");
-        if (termCursor) termCursor.remove();
-        var termCli = document.getElementById("terminal-cli-wrap");
-        if (termCli) termCli.remove();
-        document.body.classList.remove("terminal-amber");
-        stopMatrixRain();
-
-        if (window._win95ClockInterval) {
-            clearInterval(window._win95ClockInterval);
-            window._win95ClockInterval = null;
-        }
-        removeWin95Extras();
-        remove8bitExtras();
-    }
-
     function addGeocitiesMarquee() {
         var nav = document.getElementById("mainNav");
         var wrap = document.createElement("div");
@@ -2561,7 +2535,58 @@
         }, 150);
     }
 
+    function removeWin95CardDecorations() {
+        document.querySelectorAll(".win95-card-decoration").forEach(function (el) {
+            el.remove();
+        });
+    }
+
+    function decorateWin95Cards() {
+        removeWin95CardDecorations();
+        var cards = document.querySelectorAll("[data-theme-window]");
+        cards.forEach(function (card) {
+            var type = card.getAttribute("data-theme-window");
+            var title = card.getAttribute("data-window-title") || "Window";
+            var iconType = card.getAttribute("data-window-icon") || "start";
+            var iconClass = "win95-start-icon";
+            if (iconType === "notepad") iconClass = "win95-icon-notepad";
+            else if (iconType === "folder") iconClass = "win95-icon-folder";
+            else if (iconType === "cert") iconClass = "win95-icon-cert";
+
+            var titlebar = document.createElement("div");
+            titlebar.className = "win95-titlebar win95-card-decoration";
+            titlebar.innerHTML =
+                '<span class="win95-window-icon ' + iconClass + '"></span>' +
+                '<span class="win95-window-title">' + escapeHtml(title) + '</span>' +
+                '<div class="win95-window-controls">' +
+                    '<button class="win95-window-btn" type="button" tabindex="-1">_</button>' +
+                    '<button class="win95-window-btn" type="button" tabindex="-1">□</button>' +
+                    '<button class="win95-window-btn" type="button" tabindex="-1">✕</button>' +
+                '</div>';
+            card.insertBefore(titlebar, card.firstChild);
+
+            if (type === "notepad") {
+                var menubar = document.createElement("div");
+                menubar.className = "win95-window-menubar win95-card-decoration";
+                menubar.innerHTML =
+                    '<span><u>F</u>ile</span>' +
+                    '<span><u>E</u>dit</span>' +
+                    '<span><u>S</u>earch</span>' +
+                    '<span><u>H</u>elp</span>';
+                card.insertBefore(menubar, titlebar.nextSibling);
+
+                var statusbar = document.createElement("div");
+                statusbar.className = "win95-window-statusbar win95-card-decoration";
+                statusbar.innerHTML =
+                    '<span>For Help, press F1</span>' +
+                    '<span>Ln 1, Col 1</span>';
+                card.appendChild(statusbar);
+            }
+        });
+    }
+
     function removeWin95Extras() {
+        removeWin95CardDecorations();
         ["win95-desktop-icons", "win95-start-menu", "win95-shutdown-screen", "win95-bsod-screen"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.remove();
@@ -2592,6 +2617,66 @@
     function initWin95Extras() {
         createDesktopIcons();
         buildStartMenu();
+        decorateWin95Cards();
+    }
+
+    var THEME_HANDLERS = {
+        win95: {
+            mount: function () {
+                addWin95Taskbar();
+                initWin95Extras();
+            },
+            unmount: function () {
+                var taskbar = document.getElementById("win95-taskbar");
+                if (taskbar) taskbar.remove();
+                if (window._win95ClockInterval) {
+                    clearInterval(window._win95ClockInterval);
+                    window._win95ClockInterval = null;
+                }
+                removeWin95Extras();
+            }
+        },
+        geocities: {
+            mount: function () {
+                addGeocitiesMarquee();
+            },
+            unmount: function () {
+                var marquee = document.getElementById("geocities-marquee-wrap");
+                if (marquee) marquee.remove();
+                var webring = document.getElementById("geocities-webring");
+                if (webring) webring.remove();
+                var guestbook = document.getElementById("geocities-guestbook-modal");
+                if (guestbook) guestbook.remove();
+            }
+        },
+        "8bit": {
+            mount: function () {
+                add8bitHeader();
+            },
+            unmount: function () {
+                remove8bitExtras();
+            }
+        },
+        terminal: {
+            mount: function () {
+                addTerminalCursor();
+                addTerminalCli();
+            },
+            unmount: function () {
+                var termCursor = document.getElementById("terminal-cursor");
+                if (termCursor) termCursor.remove();
+                var termCli = document.getElementById("terminal-cli-wrap");
+                if (termCli) termCli.remove();
+                document.body.classList.remove("terminal-amber");
+                stopMatrixRain();
+            }
+        }
+    };
+
+    function clearDecorations() {
+        Object.keys(THEME_HANDLERS).forEach(function (key) {
+            THEME_HANDLERS[key].unmount();
+        });
     }
 
     function applyTheme(theme) {
@@ -2606,7 +2691,7 @@
         }
         clearDecorations();
 
-        CURRENT_THEME = theme && theme !== "default" ? theme : "default";
+        CURRENT_THEME = theme && THEME_HANDLERS[theme] ? theme : "default";
 
         if (CURRENT_THEME !== "default") {
             body.classList.add("theme-" + CURRENT_THEME);
@@ -2616,16 +2701,7 @@
                 backgroundVideo.style.display = "none";
             }
 
-            if (CURRENT_THEME === "win95") {
-                addWin95Taskbar();
-                initWin95Extras();
-            }
-            if (CURRENT_THEME === "geocities") addGeocitiesMarquee();
-            if (CURRENT_THEME === "8bit") add8bitHeader();
-            if (CURRENT_THEME === "terminal") {
-                addTerminalCursor();
-                addTerminalCli();
-            }
+            THEME_HANDLERS[CURRENT_THEME].mount();
         }
 
         updateActiveMenuItem(CURRENT_THEME);

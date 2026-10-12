@@ -79,17 +79,6 @@ body.theme-win95 h6 samp {
     font-family: "Courier New", monospace;
 }
 
-/* Windows 95 Only Elements (Hidden by default in all other themes) */
-.win95-only {
-    display: none !important;
-}
-body.theme-win95 .win95-only {
-    display: flex !important;
-}
-body.theme-win95 .win95-only.d-block {
-    display: block !important;
-}
-
 /* Base Card Styling for Windows 95 Theme */
 body.theme-win95 .card {
     border-radius: 0 !important;
@@ -124,6 +113,7 @@ body.theme-win95 .card-body::before {
 }
 
 /* Suppress pseudo titlebar for cards that have their own authentic .win95-titlebar */
+body.theme-win95 [data-theme-window] .card-body::before,
 body.theme-win95 #background .card .card-body::before,
 body.theme-win95 #qualities .card .card-body::before,
 body.theme-win95 #awards .card .card-body::before {

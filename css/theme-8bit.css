@@ -6,32 +6,35 @@
 
 body.theme-8bit {
     background-color: #5c94fc !important;
-    /* Added classic 8-bit cloud pattern to make the background more Mario-themed */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cpath d='M40,80 h20 v-10 h20 v-10 h40 v10 h20 v10 h20 v20 h-120 z M180,180 h10 v-10 h10 v-10 h30 v10 h10 v10 h10 v20 h-70 z' fill='%23ffffff' opacity='0.8'/%3E%3C/svg%3E") !important;
-    background-attachment: fixed;
+    background-image: url("../img/mario-sky.webp"), url("../img/mario-sky.png") !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
     color: #fff;
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 12px;
     line-height: 2;
-    padding-bottom: 56px !important;
+    padding-top: 96px !important;
+    padding-bottom: 48px !important;
     position: relative;
     overflow-x: hidden;
-    cursor: url("data:image/png;base64,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"), auto;
+    cursor: url("data:image/png;base64,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"), auto;
 }
 
 body.theme-8bit::after {
     content: "";
     position: fixed;
-    bottom: 0;
+    bottom: 0 !important;
     left: 0;
     width: 100%;
     height: 32px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='2' y='2' width='28' height='12' fill='%23fc9838'/%3E%3Crect x='2' y='16' width='12' height='14' fill='%23fc9838'/%3E%3Crect x='16' y='16' width='14' height='14' fill='%23fc9838'/%3E%3Cpath d='M2 2h28v2H2z M2 16h12v2H2z M16 16h14v2H16z' fill='%23f8d8a8'/%3E%3Cpath d='M30 2v12h-2V2z M14 16v14h-2V16z M30 16v14h-2V16z' fill='%23c84c0c'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23882c00'/%3E%3Crect x='2' y='2' width='28' height='12' fill='%23fc9838'/%3E%3Crect x='2' y='16' width='12' height='14' fill='%23fc9838'/%3E%3Crect x='16' y='16' width='14' height='14' fill='%23fc9838'/%3E%3Cpath d='M2 2h28v2H2z M2 16h12v2H2z M16 16h14v2H16z' fill='%23f8d8a8'/%3E%3Cpath d='M30 2v12h-2V2z M14 16v14h-2V16z M30 16v14h-2V16z' fill='%23c84c0c'/%3E%3C/svg%3E");
     background-repeat: repeat-x;
     background-size: 32px 32px;
     background-position: bottom left;
     image-rendering: pixelated;
-    z-index: 99999;
+    z-index: 1055;
     pointer-events: none;
 }
 
@@ -70,31 +73,28 @@ body.theme-8bit h6 {
 }
 
 body.theme-8bit h2 {
-    background-color: transparent;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAA0ElEQVR4nO2VUQ6DIAyG/y47iafyijuVR2EPdkuFgoUawYTvSYOlH7VVgp8AACGEZIGI/patmzcHMkETS5Lsok25Xi1BjEmOHwS40rVYTqVubJU7JKNsuvoFFHrrakq9mhM0v74r0XpV68EucpwYiFoqFuwmJwQAIemZ4luQgt2r90NW8VEVHJIp6EUKUuFXdCvygz2n2Mtb3ny2Xhp5Dj24LmP0IHskPTgkU9DL4wS7D4ocEECv4KnkuhBqD2KJieVygkBBUmxirrYlRpMDgC/glUVWoFNpQAAAAABJRU5ErkJggg==");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
-    image-rendering: pixelated;
-    border: none;
-    box-shadow: none;
-    padding: 44px 56px;
+    background: rgba(0, 24, 76, 0.94);
+    border: 3px solid #fcd000;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+    padding: 14px 28px;
     text-align: center;
-    color: #1c3f94;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+    color: #fff200;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
     font-family: inherit;
-    font-size: clamp(0.85rem, 2.2vw, 1.25rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.35rem);
     line-height: 1.4;
     word-break: break-word;
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 60px auto 50px auto;
-    width: 92%;
-    max-width: 620px;
-    min-height: 170px;
+    margin: 40px auto 30px auto;
+    width: auto;
+    max-width: 90%;
+    min-height: auto;
     z-index: 10;
+    letter-spacing: 1px;
 }
 
 body.theme-8bit .container::before,
@@ -127,7 +127,7 @@ body.theme-8bit code {
 body.theme-8bit img {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    border: 4px solid #000;
+    border: none;
 }
 
 body.theme-8bit .rounded,
@@ -136,35 +136,51 @@ body.theme-8bit .rounded-circle {
 }
 
 /* Framed headshot in hero section */
-body.theme-8bit header img.rounded-circle {
-    border: 4px solid #000;
-    box-shadow: 6px 6px 0 #000;
-    padding: 0 !important;
-    background-color: #000;
+
+body.theme-8bit header {
+    padding-top: 2rem !important;
+    margin-top: 0 !important;
 }
 
-/* Framed company logos inside cards */
-body.theme-8bit .card img.img-fluid {
-    background-color: #fff;
-    padding: 6px;
-    border: 3px solid #fc9838;
+body.theme-8bit header img.rounded-circle {
+    border: 3px solid #fcd000;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    padding: 0 !important;
+    background-color: #00185c;
+    border-radius: 50% !important;
+    margin-bottom: 2rem !important;
+    display: inline-block;
+}
+
+body.theme-8bit header h1,
+body.theme-8bit header .display-2 {
+    margin-top: 1rem !important;
+}
+
+/* Company logos inside cards: clean single border on the card, no nested inner border */
+body.theme-8bit .card img.img-fluid,
+body.theme-8bit ul.timeline > li .clearfix .card img.img-fluid {
+    background-color: transparent !important;
+    padding: 2px !important;
+    border: none !important;
 }
 
 /* Timeline */
 body.theme-8bit ul.timeline:before {
-    background: #000 !important;
+    background: #00a800 !important;
+    box-shadow: 0 0 3px #80d010;
     width: 4px !important;
     left: 1.8rem !important;
 }
 
 body.theme-8bit ul.timeline > li:before {
-    border-radius: 0 !important;
-    border: 3px solid #000 !important;
-    background: #fff200 !important;
+    border-radius: 50% !important;
+    border: 2px solid #c84c0c !important;
+    background: #fcd000 !important;
     width: 16px !important;
     height: 16px !important;
     left: 1.35rem !important;
-    box-shadow: 2px 2px 0 #000 !important;
+    box-shadow: 0 0 4px #fc9838 !important;
 }
 
 body.theme-8bit ul.timeline > li span.fa-li {
@@ -176,57 +192,127 @@ body.theme-8bit ul.timeline > li span.fa-li {
 
 body.theme-8bit .fa-ul .fa-li {
     color: #fff200;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6);
 }
 
 /* Date badges and dividers */
 body.theme-8bit .border-top {
-    border-color: #000 !important;
-    border-top-width: 3px !important;
+    border-color: rgba(252, 208, 0, 0.4) !important;
+    border-top-width: 2px !important;
 }
 
 body.theme-8bit .bg-light:not(section) {
-    background-color: #000 !important;
+    background-color: #c84c0c !important;
     color: #fff200 !important;
-    border: 2px solid #fc9838 !important;
-    border-radius: 0 !important;
+    border: 2px solid #fcd000 !important;
+    border-radius: 3px !important;
     font-size: 0.65rem;
     letter-spacing: 1px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Navigation */
+/* Experience Section Mario Dialogue Card */
+body.theme-8bit ul.timeline > li .clearfix {
+    background: rgba(0, 24, 76, 0.94);
+    border: 3px solid #fcd000;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+body.theme-8bit ul.timeline > li .clearfix h3 {
+    color: #fff200 !important;
+    margin-bottom: 0.5rem;
+}
+
+body.theme-8bit ul.timeline > li .clearfix h4 {
+    color: #fc9838 !important;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+}
+
+body.theme-8bit ul.timeline > li .clearfix .fa-ul li {
+    color: #ffffff !important;
+    line-height: 1.8;
+}
+
+body.theme-8bit ul.timeline > li .clearfix .card {
+    background-color: #ffffff !important;
+    border: 3px solid #fc9838 !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    padding: 4px !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Navigation: Fixed at top */
 body.theme-8bit #mainNav {
-    background: #000 !important;
-    border-bottom: 4px solid #fff200;
+    position: fixed !important;
     top: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     z-index: 1060 !important;
+    background: rgba(0, 24, 76, 0.98) !important;
+    border-top: none !important;
+    border-bottom: 2px solid #fc9838 !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+    min-height: 48px !important;
+    padding: 4px 16px !important;
 }
 
 body.theme-8bit #mainNav .navbar-brand,
 body.theme-8bit #mainNav .nav-link {
     color: #fff !important;
     font-size: 0.7rem;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 body.theme-8bit #mainNav .nav-link:hover {
-    color: #fc9838 !important;
+    color: #fcd000 !important;
 }
 
 body.theme-8bit .navbar-toggler {
-    border: 3px solid #fff200;
-    border-radius: 0;
-    padding: 6px 10px;
+    border: 2px solid #fcd000;
+    background: #00185c;
+    border-radius: 3px;
+    padding: 4px 8px;
+    font-size: 0.7rem;
 }
 
 body.theme-8bit .navbar-toggler:focus {
     box-shadow: 0 0 0 3px #fc9838;
 }
 
+/* Dropdown menu opens downwards from the top navbar */
 body.theme-8bit .dropdown-menu {
-    background: #000;
-    border: 4px solid #fc9838;
-    border-radius: 0;
-    box-shadow: 6px 6px 0 #000;
+    background: #00185c;
+    border: 3px solid #fcd000;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    top: 100% !important;
+    bottom: auto !important;
+    margin-top: 4px !important;
+}
+
+@media (max-width: 991px) {
+    body.theme-8bit #mainNav {
+        height: auto !important;
+        min-height: 48px !important;
+    }
+
+    body.theme-8bit #navbarResponsive.show,
+    body.theme-8bit #navbarResponsive.collapsing {
+        position: static;
+        width: 100%;
+        background: rgba(0, 24, 76, 0.98);
+        border-top: 2px solid #fc9838;
+        padding: 8px 12px;
+        margin-top: 4px;
+    }
 }
 
 body.theme-8bit .dropdown-item {
@@ -242,27 +328,32 @@ body.theme-8bit .dropdown-item.active {
 
 /* Cards */
 body.theme-8bit .card {
-    background-color: #000;
-    border: 16px solid transparent;
-    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='2' y='2' width='28' height='12' fill='%23fc9838'/%3E%3Crect x='2' y='16' width='12' height='14' fill='%23fc9838'/%3E%3Crect x='16' y='16' width='14' height='14' fill='%23fc9838'/%3E%3Cpath d='M2 2h28v2H2z M2 16h12v2H2z M16 16h14v2H16z' fill='%23f8d8a8'/%3E%3Cpath d='M30 2v12h-2V2z M14 16v14h-2V16z M30 16v14h-2V16z' fill='%23c84c0c'/%3E%3C/svg%3E") 16 repeat;
-    border-radius: 0;
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 24, 76, 0.94);
+    border: 3px solid #fcd000;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
     margin-bottom: 2rem;
     cursor: pointer;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.1s ease;
 }
 
 body.theme-8bit .card:hover {
-    box-shadow: 10px 10px 0 #fc9838;
+    box-shadow: 6px 6px 0 #fc9838;
+    border-color: #ffffff;
     transform: translateY(-2px);
 }
 
 body.theme-8bit .card:active {
     transform: translateY(2px);
-    box-shadow: 4px 4px 0 #fc9838;
+    box-shadow: 2px 2px 0 #fc9838;
 }
 
-body.theme-8bit .card-header,
+body.theme-8bit .card-header {
+    background: rgba(252, 208, 0, 0.15);
+    border-bottom: 2px solid #fcd000;
+    color: #fff200;
+}
+
 body.theme-8bit .card-body {
     background: transparent;
     border: none;
@@ -285,34 +376,33 @@ body.theme-8bit .list-group-item {
 
 /* Buttons */
 body.theme-8bit .btn {
-    background-color: #fc9838;
-    background-position: left center;
-    background-repeat: repeat;
-    background-size: auto 100%;
-    border: 4px solid #000;
-    color: #fff !important;
-    text-shadow: 2px 2px 0 #000;
-    padding: 12px 24px;
+    background-color: #c84c0c;
+    border: 3px solid #fcd000;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+    padding: 10px 22px;
     margin: 4px;
-    border-radius: 0;
-    box-shadow: 4px 4px 0 #000;
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 #882c00;
     text-transform: uppercase;
     position: relative;
-    transition: none;
+    transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
 body.theme-8bit .btn:hover {
-    background-color: #f8d8a8;
-    color: #000 !important;
+    background-color: #fcd000;
+    color: #00185c !important;
+    border-color: #fc9838;
+    box-shadow: 4px 4px 0 #c84c0c;
     transform: translateY(-2px);
 }
 
 body.theme-8bit .btn:active,
 body.theme-8bit .btn.hit {
     transform: translateY(2px);
-    box-shadow: 2px 2px 0 #000;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='2' y='2' width='28' height='28' fill='%23c84c0c'/%3E%3Cpath d='M2 2h28v2H2z M2 2v28h2V2z' fill='%23fc9838'/%3E%3Cpath d='M30 2v28h-2V2z M2 30h28v2H2z' fill='%23882c00'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23000'/%3E%3Crect x='22' y='6' width='4' height='4' fill='%23000'/%3E%3Crect x='6' y='22' width='4' height='4' fill='%23000'/%3E%3Crect x='22' y='22' width='4' height='4' fill='%23000'/%3E%3C/svg%3E");
-    color: #aaa !important;
+    box-shadow: 1px 1px 0 #882c00;
+    background-color: #fc9838;
+    color: #fff !important;
 }
 
 body.theme-8bit a:focus,
@@ -328,33 +418,50 @@ body.theme-8bit section.bg-light {
     border: none;
 }
 
-/* 8-bit Score Header */
+/* 8-bit Score Header: Fixed right below #mainNav at top: 48px */
 .bit-header {
     display: flex;
-    justify-content: space-around;
-    background: #000;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 24, 76, 0.98) !important;
     color: #fff;
-    padding: 1rem;
+    padding: 4px 16px !important;
     font-family: "Press Start 2P", monospace;
-    font-size: 1rem;
+    font-size: 0.7rem;
     text-align: center;
-    position: sticky;
-    top: 56px;
+    position: fixed !important;
+    top: 48px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-height: 44px !important;
     z-index: 1050;
-    border-bottom: 4px solid #fff200;
+    border-bottom: 3px solid #fcd000 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    box-sizing: border-box;
 }
 
 .bit-header > div {
-    flex-basis: 25%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .bit-header span {
     display: block;
     text-shadow: 2px 2px 0 #000;
+    line-height: 1.2;
 }
 
 .bit-header span:first-child {
-    margin-bottom: 0.5rem;
+    margin-bottom: 3px;
+    color: #fc9838;
+}
+
+.bit-header span:last-child {
+    color: #ffffff;
 }
 
 .bit-coin-icon {
@@ -363,7 +470,7 @@ body.theme-8bit section.bg-light {
     height: 24px;
     vertical-align: middle;
     margin-right: 8px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Crect x='4' y='0' width='8' height='24' fill='%23000'/%3E%3Crect x='2' y='2' width='12' height='20' fill='%23000'/%3E%3Crect x='0' y='6' width='16' height='12' fill='%23000'/%3E%3Crect x='4' y='2' width='8' height='20' fill='%23f8d8a8'/%3E%3Crect x='2' y='6' width='12' height='12' fill='%23f8d8a8'/%3E%3Crect x='6' y='4' width='4' height='16' fill='%23fcd000'/%3E%3Crect x='6' y='8' width='4' height='8' fill='%23c84c0c'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Crect x='4' y='0' width='8' height='24' fill='%23882c00'/%3E%3Crect x='2' y='2' width='12' height='20' fill='%23882c00'/%3E%3Crect x='0' y='6' width='16' height='12' fill='%23882c00'/%3E%3Crect x='4' y='2' width='8' height='20' fill='%23f8d8a8'/%3E%3Crect x='2' y='6' width='12' height='12' fill='%23f8d8a8'/%3E%3Crect x='6' y='4' width='4' height='16' fill='%23fcd000'/%3E%3Crect x='6' y='8' width='4' height='8' fill='%23c84c0c'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -371,7 +478,7 @@ body.theme-8bit section.bg-light {
 /* Animated enemy and coin pop */
 .enemy-shell {
     position: fixed;
-    bottom: 32px;
+    bottom: 80px !important;
     width: 36px;
     height: 36px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACWCAMAAABuMnOvAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAADNQTFRFAAAAqEAwEJBYKLhAgOh4iIiY4Ojo+Pj4+Lh4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4WcWwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6gcREi4gDkUgVAAAARpJREFUeNrt3MFOwzAQRdGWUlr+/4fZZVg8TW1ArY3OXSayc7waRZFyOkmS9LLeBgMEBAQEBMyYj7bL0VPQgICAgIBLAvsRVoT3oydTAQEBAQGXBI6yEjBR092EBgQEBAT8L8B+NF3aemDaua4BAgICAu4NrCW14fzQS9R0N+3yYOgBAgICAm4D7EddKr0WjR4YEBAQEHBvYFpyPboNVivmh+MDKiAgICDg4sDaOn3ML8I5lA6SdrmG+oPUMwABAQEBdwQmzGdbIvTDsedXgICAgICrA89t96Oe2q9Iw7Hv26gDBAQEBFwcWPXA0cF1ny49N35AgQEBARcHNhTE/o3hB+wAAEBAQG3Ac6j5/vz/80AAgICAr4G+AXUqPhxwRpK1wAAAABJRU5ErkJggg==");
@@ -386,7 +493,7 @@ body.theme-8bit section.bg-light {
     position: absolute;
     width: 24px;
     height: 36px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Crect x='4' y='0' width='8' height='24' fill='%23000'/%3E%3Crect x='2' y='2' width='12' height='20' fill='%23000'/%3E%3Crect x='0' y='6' width='16' height='12' fill='%23000'/%3E%3Crect x='4' y='2' width='8' height='20' fill='%23f8d8a8'/%3E%3Crect x='2' y='6' width='12' height='12' fill='%23f8d8a8'/%3E%3Crect x='6' y='4' width='4' height='16' fill='%23fcd000'/%3E%3Crect x='6' y='8' width='4' height='8' fill='%23c84c0c'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Crect x='4' y='0' width='8' height='24' fill='%23882c00'/%3E%3Crect x='2' y='2' width='12' height='20' fill='%23882c00'/%3E%3Crect x='0' y='6' width='16' height='12' fill='%23882c00'/%3E%3Crect x='4' y='2' width='8' height='20' fill='%23f8d8a8'/%3E%3Crect x='2' y='6' width='12' height='12' fill='%23f8d8a8'/%3E%3Crect x='6' y='4' width='4' height='16' fill='%23fcd000'/%3E%3Crect x='6' y='8' width='4' height='8' fill='%23c84c0c'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 10000;
@@ -429,15 +536,18 @@ body.theme-8bit footer {
 body.theme-8bit footer::before {
     content: "";
     position: absolute;
-    top: 30px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 160px;
-    height: 160px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M20 160v-60h20v-20h-10v-20h30v40h40v-40h30v20h-10v20h20v60H20z' fill='%23fc9838' stroke='%23000' stroke-width='4'/%3E%3Cpath d='M60 160v-40h40v40H60z' fill='%23000'/%3E%3Cpath d='M70 160v-30h20v30H70z' fill='%235c94fc'/%3E%3Crect x='30' y='110' width='10' height='20' fill='%23000'/%3E%3Crect x='120' y='110' width='10' height='20' fill='%23000'/%3E%3C/svg%3E");
+    width: 200px;
+    height: 200px;
+    background-image: url("../img/mario-castle.png") !important;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center bottom;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    pointer-events: none;
 }
 
 body.theme-8bit footer a {
@@ -446,26 +556,28 @@ body.theme-8bit footer a {
 
 /* Tables */
 body.theme-8bit table {
-    background-color: #000;
-    border: 4px solid #fc9838;
+    background-color: rgba(0, 24, 76, 0.94);
+    border: 3px solid #fcd000;
+    border-radius: 4px;
 }
 
 body.theme-8bit th {
     background-color: #fc9838 !important;
-    color: #000 !important;
-    border: 2px solid #fc9838 !important;
+    color: #00185c !important;
+    border: 2px solid #fcd000 !important;
     text-transform: uppercase;
     font-size: 0.7rem;
 }
 
 body.theme-8bit td {
-    border: 2px solid #fc9838 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(252, 208, 0, 0.25) !important;
     color: #fff;
     font-size: 0.7rem;
 }
 
 body.theme-8bit .table-hover tbody tr:hover td {
-    background-color: #222 !important;
+    background-color: rgba(252, 208, 0, 0.15) !important;
     color: #fff200 !important;
 }
 
@@ -492,10 +604,9 @@ body.theme-8bit td a:hover {
     }
 
     body.theme-8bit h2 {
-        padding: 34px 40px;
-        min-height: 140px;
-        font-size: 0.85rem;
-        margin: 40px auto 30px auto;
+        padding: 10px 18px !important;
+        font-size: 0.85rem !important;
+        margin: 24px auto 20px auto !important;
     }
 }
 
@@ -512,15 +623,14 @@ body.theme-8bit td a:hover {
     }
 
     body.theme-8bit h2 {
-        padding: 24px 28px;
-        min-height: 110px;
-        font-size: 0.75rem;
-        margin: 30px auto 20px auto;
+        padding: 8px 14px !important;
+        font-size: 0.75rem !important;
+        margin: 18px auto 16px auto !important;
     }
 
     body.theme-8bit .card {
-        border-width: 12px;
-        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+        border-width: 2px;
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
     }
 }
 
@@ -570,3 +680,399 @@ body.theme-8bit .card:hover {
     }
 }
 
+
+
+/* ==========================================================================
+   SUPER MARIO BROS ARCADE MODAL & CONTROLS
+   ========================================================================== */
+.bit-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.bit-play-arcade-btn {
+    background: #e60012;
+    color: #fff200 !important;
+    border: 2px solid #fff200;
+    padding: 5px 12px;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+    animation: bit-play-pulse 1.2s infinite alternate ease-in-out;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.bit-play-arcade-btn:hover {
+    background: #fcd000;
+    color: #00185c !important;
+    border-color: #fc9838;
+    transform: scale(1.06);
+}
+
+@keyframes bit-play-pulse {
+    0% {
+        box-shadow: 0 0 4px #fff200, 2px 2px 0 rgba(0, 0, 0, 0.4);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 14px #fff200, 2px 2px 0 rgba(0, 0, 0, 0.4);
+        transform: scale(1.04);
+    }
+}
+
+/* Page Mario Walker & Goomba */
+.mario-page-walker {
+    position: fixed;
+    bottom: 32px;
+    left: 80px;
+    width: 32px;
+    height: 32px;
+    z-index: 99998;
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.mario-page-walker img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.mario-page-goomba {
+    position: fixed;
+    bottom: 32px !important;
+    left: 80%;
+    width: 32px;
+    height: 32px;
+    z-index: 99997;
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.mario-page-goomba img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Full-Screen Retro Arcade Modal */
+.mario-arcade-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(4px);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.mario-arcade-box {
+    background: #00185c;
+    border: 4px solid #c84c0c;
+    outline: 3px solid #fcd000;
+    border-radius: 4px;
+    box-shadow: 0 0 35px rgba(230, 0, 18, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.mario-arcade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #00185c;
+    border-bottom: 3px solid #fcd000;
+    color: #fff200;
+    font-size: 0.75rem;
+    font-family: "Press Start 2P", monospace;
+}
+
+.mario-arcade-title {
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.mario-arcade-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.mario-hdr-btn {
+    background: #222;
+    color: #fff;
+    border: 2px solid #666;
+    font-family: inherit;
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.mario-hdr-btn:hover {
+    background: #fc9838;
+    color: #000;
+    border-color: #fff200;
+}
+
+.mario-screen-wrapper {
+    position: relative;
+    background: #000;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mario-arcade-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+}
+
+.mario-crt-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    opacity: 0.6;
+}
+
+.mario-arcade-footer {
+    background: #00185c;
+    border-top: 3px solid #fcd000;
+    padding: 8px 12px;
+    color: #aaa;
+    font-size: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: "Press Start 2P", monospace;
+}
+
+.mario-keyboard-hint {
+    color: #fff200;
+    text-align: center;
+    font-size: 0.6rem;
+    line-height: 1.4;
+}
+
+.mario-touch-pad {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 440px;
+    padding: 4px 8px;
+}
+
+.mario-dpad, .mario-action-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.dpad-btn, .action-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 1rem;
+    border: 2px solid #fcd000;
+    border-radius: 4px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dpad-btn {
+    background: #0c2464;
+    color: #fff;
+}
+
+.dpad-btn:active, .dpad-btn.pressed {
+    background: #fc9838;
+    color: #00185c;
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.action-btn {
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #fcd000;
+    font-size: 0.52rem;
+    letter-spacing: -0.5px;
+    padding: 0;
+}
+
+.action-btn.btn-b {
+    background: #b81800;
+}
+
+.action-btn.btn-a {
+    background: #d82800;
+}
+
+.action-btn:active, .action-btn.pressed {
+    filter: brightness(1.3);
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .bit-play-arcade-btn {
+        font-size: 0.55rem;
+        padding: 4px 6px;
+    }
+    .mario-arcade-header {
+        font-size: 0.6rem;
+    }
+    .mario-keyboard-hint {
+        display: none;
+    }
+    .dpad-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 0.85rem;
+    }
+    .action-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 0.44rem;
+    }
+}
+
+
+/* ==========================================================================
+   MEDIA COVERAGE SECTION VISIBILITY ENHANCEMENTS
+   ========================================================================== */
+body.theme-8bit #media,
+body.theme-8bit #media .container {
+    color: #fff !important;
+}
+
+body.theme-8bit #media h2 {
+    color: #fff200 !important;
+}
+
+body.theme-8bit #media h6,
+body.theme-8bit #media samp,
+body.theme-8bit #media .text-secondary {
+    color: #fff200 !important;
+    text-shadow: 2px 2px 0 #000;
+}
+
+body.theme-8bit #media p.lead {
+    color: #ffffff !important;
+    text-shadow: 2px 2px 0 #000;
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+}
+
+body.theme-8bit #media .table-responsive {
+    background: transparent !important;
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+body.theme-8bit .table,
+body.theme-8bit table {
+    background-color: rgba(0, 24, 76, 0.94) !important;
+    color: #fff !important;
+    border: 3px solid #fcd000 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35) !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+}
+
+body.theme-8bit .table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: #fff !important;
+    border-bottom: 1px solid rgba(252, 208, 0, 0.3) !important;
+    padding: 14px 16px !important;
+    vertical-align: middle !important;
+}
+
+body.theme-8bit .table thead th {
+    background-color: #fc9838 !important;
+    color: #00185c !important;
+    border: 2px solid #fcd000 !important;
+    text-transform: uppercase !important;
+    font-size: 0.75rem !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+    text-shadow: none !important;
+}
+
+body.theme-8bit .table tbody td {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(252, 208, 0, 0.2) !important;
+    font-size: 0.75rem !important;
+    line-height: 1.6 !important;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+body.theme-8bit .table tbody td a {
+    color: #fff200 !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+body.theme-8bit .table tbody td a:hover {
+    color: #fc9838 !important;
+}
+
+body.theme-8bit .table-hover tbody tr:hover > * {
+    background-color: rgba(252, 208, 0, 0.15) !important;
+    color: #fff200 !important;
+}
+
+body.theme-8bit .table-hover tbody tr:hover td a {
+    color: #fc9838 !important;
+}

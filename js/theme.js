@@ -2842,9 +2842,9 @@
         document.addEventListener("click", handleDocumentClick);
         document.addEventListener("keydown", handleDocumentKeydown);
         document.addEventListener("mousedown", handleTitlebarPointerDown);
-        document.addEventListener("mousemove", handlePointerMove);
+        document.addEventListener("mousemove", handlePointerMove, { passive: true });
         document.addEventListener("mouseup", handlePointerUp);
-        document.addEventListener("mousemove", handleGeoCitiesMouseMove);
+        document.addEventListener("mousemove", handleGeoCitiesMouseMove, { passive: true });
         document.addEventListener("touchstart", handleTitlebarPointerDown, { passive: true });
         document.addEventListener("touchmove", handlePointerMove, { passive: true });
         document.addEventListener("touchend", handlePointerUp);

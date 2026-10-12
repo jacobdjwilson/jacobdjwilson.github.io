@@ -285,7 +285,7 @@ body.theme-terminal.terminal-amber #terminal-cli-wrap {
 }
 
 .terminal-cli-history {
-    max-height: min(35vh, 250px);
+    max-height: min(45vh, 320px);
     overflow-y: auto;
     font-size: 12px;
     line-height: 1.4;

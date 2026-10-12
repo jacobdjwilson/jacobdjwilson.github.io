@@ -79,43 +79,341 @@ body.theme-win95 h6 samp {
     font-family: "Courier New", monospace;
 }
 
+/* Windows 95 Only Elements (Hidden by default in all other themes) */
+.win95-only {
+    display: none !important;
+}
+body.theme-win95 .win95-only {
+    display: flex !important;
+}
+body.theme-win95 .win95-only.d-block {
+    display: block !important;
+}
+
+/* Base Card Styling for Windows 95 Theme */
 body.theme-win95 .card {
-    border-radius: 0;
-    border: 2px outset #c0c0c0;
-    background: #fff;
-    box-shadow: none;
+    border-radius: 0 !important;
+    border: 2px outset #ffffff !important;
+    background: #c0c0c0 !important;
+    box-shadow: 1px 1px 0 #000000 !important;
+    padding: 0 !important;
+    margin-bottom: 1rem;
+    overflow: hidden;
 }
 
 body.theme-win95 .card-body {
     border-radius: 0;
-    border: 2px outset #c0c0c0;
-    background: #c0c0c0;
+    border: none !important;
+    background: transparent !important;
     position: relative;
+    padding: 8px 10px 10px 10px !important;
 }
 
 body.theme-win95 .card-body::before {
-    content: '\2013\2002\2002\25FB\2002\2002\2715';
+    content: " \2500 \25A1 \2715";
     display: block;
-    height: 20px;
-    line-height: 20px;
     background: linear-gradient(90deg, #000080, #1084d0);
-    border-bottom: 2px solid #000;
     color: #fff;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 1px;
     text-align: right;
-    padding-right: 6px;
-    box-sizing: border-box;
-    margin: calc(-1 * var(--bs-card-spacer-y, 1rem)) calc(-1 * var(--bs-card-spacer-x, 1rem)) 0.6rem calc(-1 * var(--bs-card-spacer-x, 1rem));
+    padding: 2px 6px;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin: -8px -10px 8px -10px;
+    cursor: pointer;
 }
 
-body.theme-win95 .card.w-100 .card-body,
-body.theme-win95 .card p {
-    background: #fff;
-    border: 2px inset #c0c0c0;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
+/* Suppress pseudo titlebar for cards that have their own authentic .win95-titlebar */
+body.theme-win95 #background .card .card-body::before,
+body.theme-win95 #qualities .card .card-body::before,
+body.theme-win95 #awards .card .card-body::before {
+    display: none !important;
+}
+
+/* Windows 95 Window Titlebar */
+body.theme-win95 .win95-titlebar {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 4px;
+    font-weight: bold;
+    font-size: 12px;
+    user-select: none;
+    -webkit-user-select: none;
+    height: 22px;
+    box-sizing: border-box;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: Tahoma, "MS Sans Serif", "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1;
+    text-align: left;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-controls {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-btn {
+    width: 18px;
+    height: 16px;
+    background: #c0c0c0;
+    border: 1px outset #fff;
+    box-shadow: 1px 1px 0 #000;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer !important;
+    padding: 0;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-btn:hover {
+    background: #d4d0c8;
+}
+
+body.theme-win95 .win95-titlebar .win95-window-btn:active {
+    border-style: inset;
+    box-shadow: none;
+}
+
+/* Icons for Window Titlebars */
+.win95-icon-notepad {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M2 1h10v14H2z'/%3E%3Cpath fill='%23fff' d='M3 2h8v12H3z'/%3E%3Cpath fill='%23000080' d='M4 3h6v1H4zm0 2h6v1H4zm0 2h6v1H4zm0 2h6v1H4zm0 2h4v1H4z'/%3E%3Cpath fill='%23ffff00' d='M10 7l4 4-2 2-4-4z'/%3E%3Cpath fill='%23cc9900' d='M12 9l2 2-1 1-2-2z'/%3E%3Cpath fill='%23ff0000' d='M9 12l2 2-2 1z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.win95-icon-folder {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M1 2h5l2 2h7v10H1z'/%3E%3Cpath fill='%23ffcc00' d='M2 3h3.5l2 2H14v8H2z'/%3E%3Cpath fill='%23ffff99' d='M2 5h12v7H2z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.win95-icon-cert {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M2 1h12v11H2z'/%3E%3Cpath fill='%23fff' d='M3 2h10v9H3z'/%3E%3Cpath fill='%23000080' d='M4 4h8v1H4zm0 2h8v1H4zm0 2h5v1H4z'/%3E%3Ccircle cx='11' cy='11' r='3' fill='%23cc0000'/%3E%3Cpath fill='%23ffcc00' d='M11 9l1 2 2 1-2 1-1 2-1-2-2-1 2-1z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Background Section - Microsoft Notepad Desktop Window */
+body.theme-win95 #background .card {
+    background: #c0c0c0 !important;
+    border: 2px outset #ffffff !important;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5), 1px 1px 0 #000000 !important;
+    padding: 0 !important;
+}
+
+body.theme-win95 #background .win95-window-menubar {
+    background: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    gap: 14px;
+    padding: 2px 8px;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #000;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body.theme-win95 #background .win95-window-statusbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-top: 1px solid #808080;
+    background: #c0c0c0;
+    flex-shrink: 0;
+    color: #000;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body.theme-win95 #background .card .card-body {
+    background: #ffffff !important;
+    border: 2px inset #c0c0c0 !important;
+    margin: 3px !important;
+    padding: 16px 20px !important;
+    box-shadow: inset 1px 1px 0 #808080;
+}
+
+body.theme-win95 #background .card p {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-bottom: 1rem !important;
+    color: #000000 !important;
+    line-height: 1.6 !important;
+    font-size: 14px !important;
+    font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+}
+
+body.theme-win95 #background .card p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Qualities Section - Authentic Windows Desktop Dialog Windows */
+body.theme-win95 #qualities .card,
+body.theme-win95 #qualities .card.py-4,
+body.theme-win95 #qualities .card.px-3 {
+    background: #c0c0c0 !important;
+    border: 2px outset #ffffff !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4), 1px 1px 0 #000000 !important;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.theme-win95 #qualities .card-body {
+    background: #c0c0c0 !important;
+    border: none !important;
+    padding: 14px 12px 14px 12px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body.theme-win95 #qualities .card-body i {
+    margin-bottom: 8px;
+    font-size: 2rem;
+}
+
+/* Microsoft Windows Logo Colors for Qualities */
+body.theme-win95 #qualities .col-sm-3:nth-child(1) .card-body i {
+    color: #e81123 !important; /* Windows Red */
+}
+body.theme-win95 #qualities .col-sm-3:nth-child(2) .card-body i {
+    color: #107c41 !important; /* Windows Green */
+}
+body.theme-win95 #qualities .col-sm-3:nth-child(3) .card-body i {
+    color: #0078d7 !important; /* Windows Blue */
+}
+body.theme-win95 #qualities .col-sm-3:nth-child(4) .card-body i {
+    color: #ffb900 !important; /* Windows Yellow */
+}
+
+body.theme-win95 #qualities .card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #000;
+}
+
+body.theme-win95 #qualities .card-text {
+    background: #ffffff !important;
+    border: 2px inset #c0c0c0 !important;
+    padding: 8px 10px !important;
+    margin-top: 6px !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+    color: #000000 !important;
+    text-align: left !important;
+    flex: 1;
+    width: 100%;
+    box-shadow: inset 1px 1px 0 #808080;
+}
+
+/* Awards Section - Authentic Windows List Windows */
+body.theme-win95 #awards .card,
+body.theme-win95 #awards .card.p-2 {
+    background: #c0c0c0 !important;
+    border: 2px outset #ffffff !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4), 1px 1px 0 #000000 !important;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.theme-win95 #awards .card-body {
+    background: #c0c0c0 !important;
+    border: none !important;
+    padding: 4px !important;
+}
+
+body.theme-win95 #awards .card-title {
+    display: none !important;
+}
+
+body.theme-win95 #awards .list-group {
+    border: 2px inset #c0c0c0 !important;
+    background: #ffffff !important;
+    border-radius: 0 !important;
+    box-shadow: inset 1px 1px 0 #808080;
+    margin: 0 !important;
+}
+
+body.theme-win95 #awards .list-group-item {
+    background: #ffffff !important;
+    border: none !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    padding: 6px 8px !important;
+    color: #000000 !important;
+    font-size: 12px !important;
+    line-height: 1.35;
+    border-radius: 0 !important;
+}
+
+body.theme-win95 #awards .list-group-item:last-child {
+    border-bottom: none !important;
+}
+
+body.theme-win95 #awards .list-group-item:hover {
+    background: #000080 !important;
+    color: #ffffff !important;
+}
+
+body.theme-win95 #awards .list-group-item:hover a {
+    color: #ffff00 !important;
+}
+
+body.theme-win95 #awards .list-group-item a {
+    color: #000080;
+}
+
+/* Education Section Windows Styling */
+body.theme-win95 #education .card {
+    background: #c0c0c0 !important;
+    border: 2px outset #ffffff !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4), 1px 1px 0 #000000 !important;
+    padding: 0 !important;
+}
+
+body.theme-win95 #education .card-header {
+    background: #c0c0c0 !important;
+    border-bottom: 2px groove #808080 !important;
+    padding: 6px 12px !important;
 }
 
 body.theme-win95 ul.timeline:before {
